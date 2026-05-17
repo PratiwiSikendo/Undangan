@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cinematic Wedding | Christian & Anggita</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Cinematic Cover -->
+    <div id="cover">
+        <div class="cover-bg-image"></div>
+        <div class="cover-inner">
+            <p class="hero-date serif"
+                style="color: var(--gold-light); animation: tracking-in-expand 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;">
+                WELCOME TO OUR BIG DAY</p>
+            <h1 class="hero-names deco gold-text"
+                style="font-size: 5rem; animation: tracking-in-expand 2s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.5s both;">
+                Christian & Anggita</h1>
+            <div style="margin-top: 20px;">
+                <p style="color: white; font-weight: 200; letter-spacing: 2px;">Special Invitation To</p>
+                <p id="guest-name"
+                    style="color: var(--gold-main); font-size: 1.5rem; margin-top: 10px; font-weight: 600;">TAMU
+                    UNDANGAN</p>
+            </div>
+            <button class="open-btn" onclick="openInvitation()">Experience The Story</button>
+        </div>
+    </div>
+
+    <!-- Music Button -->
+    <div class="music-btn" id="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-play"></i>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Modern Hero -->
+        <section class="hero">
+            <p class="hero-date serif">THE WEDDING OF</p>
+            <h1 class="hero-names deco gold-text">Christian & Anggita</h1>
+            <p class="hero-date serif" style="font-size: 1.5rem;">30 • 05 • 2026</p>
+
+            <!-- Sleek Countdown Timer -->
+            <div class="countdown-modern" id="countdown">
+                <div class="cd-item"><span id="days">00</span><label>Days</label></div>
+                <div class="cd-item"><span id="hours">00</span><label>Hours</label></div>
+                <div class="cd-item"><span id="minutes">00</span><label>Mins</label></div>
+                <div class="cd-item"><span id="seconds">00</span><label>Secs</label></div>
+            </div>
+
+            <div style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);">
+                <div style="width: 1px; height: 100px; background: white; margin: 0 auto; opacity: 0.5;"></div>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section class="reveal" style="text-align: center; padding: 100px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <i class="fas fa-quote-left gold-text" style="font-size: 2rem; margin-bottom: 30px; opacity: 0.5;"></i>
+                <p class="serif" style="font-size: clamp(1.2rem, 3vw, 1.8rem); line-height: 1.8; font-style: italic;">
+                    "Dan di atas semuanya itu: kenakanlah kasih, sebagai pengikat yang mempersatukan dan
+                    menyempurnakan."
+                </p>
+                <p style="margin-top: 20px; letter-spacing: 3px; font-weight: 600; color: var(--gold-dark);">KOLOSE 3:14
+                </p>
+            </div>
+        </section>
+
+        <!-- Modern Circular Couple Section -->
+        <section id="couple" class="reveal">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <p style="margin-bottom: 10px; opacity: 0.7;">Salam hangat dalam kasih,</p>
+                <p style="max-width: 700px; margin: 0 auto 40px; font-size: 1.1rem;">
+                    Dengan memohon rahmat Tuhan, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri hari bahagia kami:
+                </p>
+                <h2 class="serif" style="font-size: 3rem;">Mempelai</h2>
+            </div>
+
+            <div class="couple-modern-circles">
+                <div class="person-circle">
+                    <div class="img-frame">
+                        <img src="assets/gambar pria.jpeg" alt="Christian">
+                    </div>
+                    <h3 class="serif">Christian Permenas Diamanis</h3>
+                    <p>Putra dari Bapak Jothan Diamanis (Alm) & Ibu Dinah Getruida Pedah</p>
+                    <a href="#" class="gold-text"><i class="fab fa-instagram"></i> @christian.diamanis</a>
+                </div>
+
+                <div class="ampersand deco gold-text">&</div>
+
+                <div class="person-circle">
+                    <div class="img-frame">
+                        <img src="assets/gambar wanita.jpeg" alt="Anggita">
+                    </div>
+                    <h3 class="serif">Anggita Christy Kanine., SE</h3>
+                    <p>Putri dari Bapak Jene Toi Kanine & Ibu Yohilda Sanggel</p>
+                    <a href="#" class="gold-text"><i class="fab fa-instagram"></i> @anggita.christy</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infinite Moving Gallery -->
+        <section id="gallery" class="reveal">
+            <h2 class="serif" style="font-size: 3rem; margin-bottom: 60px; text-align: center;">Our Cinematic Moments
+            </h2>
+            <div class="gallery-infinite">
+                <div class="gallery-track">
+                    <!-- First set of images -->
+                    <div class="gallery-item"><img src="assets/casual.png" alt=""></div>
+                    <div class="gallery-item"><img src="assets/full hitam.jpeg" alt=""></div>
+                    <div class="gallery-item"><img src="assets/prewed5.jpeg" alt=""></div>
+                    <div class="gallery-item"><img src="assets/casual3.png" alt=""></div>
+                    <div class="gallery-item"><img src="assets/prewed6.jpeg" alt=""></div>
+                    <div class="gallery-item"><img src="assets/prewed7.jpeg" alt=""></div>
+                    <!-- Duplicate set for seamless loop -->
+                    <div class="gallery-item"><img src="assets/casual.png" alt=""></div>
+                    <div class="gallery-item"><img src="assets/full hitam.jpeg" alt=""></div>
+                    <div class="gallery-item"><img src="assets/prewed5.jpeg" alt=""></div>
+                    <div class="gallery-item"><img src="assets/casual3.png" alt=""></div>
+                    <div class="gallery-item"><img src="assets/prewed6.jpeg" alt=""></div>
+                    <div class="gallery-item"><img src="assets/prewed7.jpeg" alt=""></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wedding Gift -->
+        <section id="gift" class="reveal" style="text-align: center; padding-top: 60px; padding-bottom: 60px;">
+            <h2 class="serif" style="font-size: 3.5rem; margin-bottom: 15px; color: #333;">Wedding Gift</h2>
+            <p style="margin-bottom: 25px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; color: #555;">
+                Bagi yang ingin memberikan tanda kasih, dapat mengirimkan melalui fitur di bawah ini:
+            </p>
+            <button id="gift-btn" style="background: #888; color: white; border: none; padding: 12px 30px; border-radius: 5px; font-size: 1rem; cursor: pointer; font-family: var(--font-sans);" onclick="document.getElementById('gift-details').style.display = 'inline-block'; this.style.display='none';">Klik di sini</button>
+            
+            <div id="gift-details" style="display: none; margin-top: 20px; background: white; padding: 25px; border-radius: 10px; border: 1px solid #eee; width: 100%; max-width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;">
+                <p style="font-weight: 600; color: #333; margin-bottom: 5px; font-size: 1.1rem;">BCA</p>
+                <h3 style="font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 5px; color: #333;">0263947875</h3>
+                <p style="color: #666; margin-bottom: 20px; font-size: 0.95rem;">a.n Anggita Christy Kanine</p>
+                <button style="background: var(--deep-black); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 0.85rem; cursor: pointer;" onclick="navigator.clipboard.writeText('0263947875'); alert('Nomor rekening berhasil disalin!');">Salin Nomor Rekening</button>
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section id="rsvp" class="reveal">
+            <div class="rsvp-modern" style="background: #e6e4e0; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); padding: 50px 30px;">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h2 class="serif" style="font-size: 3rem; margin-bottom: 15px; color: #111;">RSVP</h2>
+                    <p style="text-align: center; opacity: 0.8; color: #333;">Diharapkan Bapak/Ibu/Saudara/i untuk mengisi form yang ada dibawah ini:</p>
+                </div>
+
+                <form id="wedding-form">
+                    <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600; font-size: 0.9rem;">Nama</label>
+                    <input type="text" class="form-input" style="background: white; border-radius: 5px; padding: 15px; border: none; margin-bottom: 25px; box-sizing: border-box;" required>
+                    
+                    <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600; font-size: 0.9rem;">Kehadiran</label>
+                    <select class="form-input" style="background: white; border-radius: 5px; padding: 15px; border: none; margin-bottom: 25px; box-sizing: border-box;" required>
+                        <option value="">Pilih Kehadiran</option>
+                        <option value="yes">Hadir</option>
+                        <option value="no">Tidak Hadir</option>
+                    </select>
+
+                    <label style="display: block; margin-bottom: 8px; color: #333; font-weight: 600; font-size: 0.9rem;">Pesan</label>
+                    <textarea class="form-input" style="background: white; border-radius: 5px; padding: 15px; border: none; margin-bottom: 30px; box-sizing: border-box;" rows="4"></textarea>
+                    
+                    <button type="submit" class="open-btn"
+                        style="width: 100%; background: #666; color: white; border: none; border-radius: 5px; padding: 15px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Kirim Konfirmasi</button>
+                </form>
+            </div>
+        </section>
+
+        <footer style="padding: 100px 20px; text-align: center; background: var(--luxury-cream);">
+            <h2 class="deco gold-text" style="font-size: 4rem;">Christian & Anggita</h2>
+            <p style="margin-top: 20px; letter-spacing: 5px; font-weight: 200;">SEE YOU ON MAY 30TH</p>
+        </footer>
+    </main>
+
+    <!-- Audio -->
+    <audio id="bg-music" loop>
+        <source src="assets/Westlife -  Beautiful in white (Lyrics).mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
