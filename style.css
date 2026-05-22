@@ -687,10 +687,9 @@ body::before {
     opacity: 0.88;
 }
 /* ── Gallery Collage ────────────────────────────*/
-/* ── Gallery Collage ────────────────────────────*/
 .collage-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
@@ -703,7 +702,7 @@ body::before {
 }
 
 .col-item.landscape-full {
-    grid-column: span 3;
+    grid-column: span 2;
     aspect-ratio: 16/7;
 }
 
@@ -722,7 +721,6 @@ body::before {
     transform: scale(1.05);
     filter: brightness(1.04);
 }
-
 /* ── Responsive ─────────────────────────────────*/
 @media (max-width:640px) {
     .couple-grid {
