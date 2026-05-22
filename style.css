@@ -686,6 +686,46 @@ body::before {
     object-position: center top;
     opacity: 0.88;
 }
+/* ── Gallery Collage ────────────────────────────*/
+.collage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+    gap: 10px;
+}
+
+.col-item {
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .10);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .32);
+}
+
+.col-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(.92);
+    transition: transform .5s ease, filter .5s ease;
+    cursor: zoom-in;
+    display: block;
+}
+
+.col-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.04);
+}
+
+/* foto besar span 2 kolom */
+.col-item.featured {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* foto landscape span 2 kolom */
+.col-item.landscape {
+    grid-column: span 2;
+}
 
 /* ── Responsive ─────────────────────────────────*/
 @media (max-width:640px) {
@@ -733,4 +773,17 @@ body::before {
     .section {
         padding: 50px 16px;
     }
+    .collage-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
+}
+
+.col-item.featured {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.col-item.landscape {
+    grid-column: span 2;
+}
 }
