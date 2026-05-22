@@ -1,195 +1,376 @@
-// ── Guest Name from URL ─────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const guest = params.get('to');
-    if (guest) document.getElementById('guest-name').innerText = guest;
+/* ─────────────────────────────────────────────────
+   CHRISGITA 2026 · Blush & Rose Gold Premium
+   Reduced Blur · Centered Layout · Compact
+───────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap');
 
-    AOS.init({ once: true, offset: 50, duration: 1000 });
-
-    // Swiper Gallery
-    new Swiper('.gallery-swiper', {
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        spaceBetween: 18,
-        loop: true,
-        autoplay: { delay: 3500, disableOnInteraction: false },
-        pagination: { el: '.swiper-pagination', clickable: true },
-        effect: 'coverflow',
-        coverflowEffect: { rotate: 18, stretch: 0, depth: 90, modifier: 1, slideShadows: false }
-    });
-
-    // Countdown
-    const target = new Date('2026-05-30T10:00:00');
-    setInterval(() => {
-        const now = new Date();
-        const diff = target - now;
-        if (diff <= 0) {
-            ['cd-hari', 'cd-jam', 'cd-menit', 'cd-detik'].forEach(id => document.getElementById(id).textContent = '00');
-            return;
-        }
-        const d = Math.floor(diff / 864e5);
-        const h = Math.floor((diff % 864e5) / 36e5);
-        const m = Math.floor((diff % 36e5) / 6e4);
-        const s = Math.floor((diff % 6e4) / 1e3);
-        document.getElementById('cd-hari').textContent = String(d).padStart(2, '0');
-        document.getElementById('cd-jam').textContent = String(h).padStart(2, '0');
-        document.getElementById('cd-menit').textContent = String(m).padStart(2, '0');
-        document.getElementById('cd-detik').textContent = String(s).padStart(2, '0');
-    }, 1000);
-});
-
-// ── Particles (gold dust) ───────────────────────
-particlesJS('particles-js', {
-    particles: {
-        number: { value: 45, density: { enable: true, value_area: 900 } },
-        color: { value: ['#F0DEC8', '#D4AF37', '#ffffff'] },
-        shape: { type: 'circle' },
-        opacity: { value: 0.35, random: true, anim: { enable: true, speed: 0.6, opacity_min: 0.04 } },
-        size: { value: 2.2, random: true },
-        line_linked: { enable: false },
-        move: { enable: true, speed: 0.35, direction: 'top', random: true, out_mode: 'out' }
-    },
-    interactivity: { events: { onhover: { enable: false }, onclick: { enable: false } } },
-    retina_detect: true
-});
-
-// ── Open Invitation ─────────────────────────────
-const audio = document.getElementById('bg-music');
-const musicBtn = document.getElementById('music-btn');
-let playing = false;
-
-function openInvitation() {
-    const cover = document.getElementById('cover');
-    const main = document.getElementById('main');
-
-    cover.style.opacity = '0';
-    cover.style.transform = 'scale(1.04)';
-    setTimeout(() => {
-        cover.style.display = 'none';
-        main.style.display = 'block';
-        requestAnimationFrame(() => {
-            main.style.opacity = '1';
-            AOS.refresh();
-        });
-    }, 1300);
-
-    audio.volume = 0;
-    audio.play().then(() => {
-        playing = true;
-        musicBtn.classList.add('playing');
-        let v = 0;
-        const fade = setInterval(() => {
-            v = Math.min(v + 0.04, 0.72);
-            audio.volume = v;
-            if (v >= 0.72) clearInterval(fade);
-        }, 200);
-    }).catch(() => { });
+:root {
+    --rose - gold: #B07B7B;
+    --rose - light: #D4A5A5;
+    --cream: #FDF8F5;
+    --dark:         #1A1010;
+    --overlay: rgba(20, 8, 8, 0.30);
+    --glass - bg: rgba(253, 248, 245, 0.10);
+    --glass - border: rgba(255, 255, 255, 0.16);
+    --gold - line: rgba(189, 147, 120, 0.48);
 }
 
-// ── Toggle Music ────────────────────────────────
-function toggleMusic() {
-    if (playing) {
-        audio.pause();
-        musicBtn.classList.remove('playing');
-    } else {
-        audio.play();
-        musicBtn.classList.add('playing');
-    }
-    playing = !playing;
+*, *:: before, *::after { margin: 0; padding: 0; box - sizing: border - box; }
+html { scroll - behavior: smooth; font - size: 16px; }
+
+body {
+    font - family: 'Jost', sans - serif;
+    color: var(--cream);
+    overflow - x: hidden;
+    -webkit - font - smoothing: antialiased;
+    background - color: #1A1010;
 }
 
-// ── RSVP Submit ─────────────────────────────────
-function submitRSVP(e) {
-    e.preventDefault();
-    const nama = document.getElementById('nama').value.trim();
-    const kehadiran = document.getElementById('kehadiran').value;
-    const ucapan = document.getElementById('ucapan').value.trim();
-
-    const container = document.getElementById('wishes-container');
-    const card = document.createElement('div');
-    card.className = 'wish-card';
-    card.style.animation = 'wishAppear .5s ease forwards';
-    card.innerHTML = `
-        <div class="wish-name serif">${nama} <span style="font-size:.68rem;color:rgba(240,222,200,.4);">✦</span></div>
-        <div class="wish-text">${ucapan}</div>
-        <div class="wish-time">${kehadiran} · Baru saja</div>
-        <button class="btn-reply" onclick="toggleReply(this)">
-            <i class="fas fa-reply"></i> Balas
-        </button>
-        <div class="reply-form" style="display:none;">
-            <input type="text" class="input-field reply-input" placeholder="Tulis balasan dari Christian &amp; Anggita…" style="margin-top:10px;margin-bottom:8px;font-size:.78rem;padding:10px 14px;">
-            <button class="btn-send-reply" onclick="sendReply(this)">Kirim Balasan</button>
-        </div>
-        <div class="reply-section"></div>
-    `;
-    container.prepend(card);
-    document.getElementById('rsvp-form').reset();
-    showToast('Terima kasih! Ucapan Anda telah terkirim 🤍');
+body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: var(--overlay);
+    z - index: 0;
+    pointer - events: none;
 }
 
-// ── Toggle Reply Form ────────────────────────────
-function toggleReply(btn) {
-    const card = btn.closest('.wish-card');
-    const form = card.querySelector('.reply-form');
-    const isHidden = form.style.display === 'none';
-    form.style.display = isHidden ? 'block' : 'none';
-    if (isHidden) {
-        setTimeout(() => card.querySelector('.reply-input').focus(), 50);
-    }
+/* ── Typography ─────────────────────────────────*/
+.serif  { font - family: 'Cormorant Garamond', serif; }
+.sans   { font - family: 'Jost', sans - serif; }
+.upper  { text - transform: uppercase; letter - spacing: 4px; }
+.italic { font - style: italic; }
+.center { text - align: center; }
+
+.gold - text {
+    background: linear - gradient(135deg, #F0DEC8, #C8A07A, #8B6040, #C8A07A, #F0DEC8);
+    background - size: 300 % auto;
+    -webkit - background - clip: text;
+    -webkit - text - fill - color: transparent;
+    animation: shimmer 7s linear infinite;
+}
+@keyframes shimmer { to { background - position: 300 % center; } }
+
+/* ── Particles ──────────────────────────────────*/
+#particles - js {
+    position: fixed; inset: 0;
+    z - index: 1; pointer - events: none;
 }
 
-// ── Send Reply ───────────────────────────────────
-function sendReply(btn) {
-    const card = btn.closest('.wish-card');
-    const input = card.querySelector('.reply-input');
-    const text = input.value.trim();
-    if (!text) return;
-
-    const replySection = card.querySelector('.reply-section');
-    const replyEl = document.createElement('div');
-    replyEl.className = 'reply-bubble';
-    replyEl.innerHTML = `
-        <div class="reply-author">
-            <i class="fas fa-heart" style="font-size:.6rem;margin-right:6px;color:rgba(180,130,130,.7);"></i>
-            Christian &amp; Anggita
-        </div>
-        <div class="reply-text">${text}</div>
-    `;
-    replySection.appendChild(replyEl);
-
-    input.value = '';
-    card.querySelector('.reply-form').style.display = 'none';
-    showToast('Balasan terkirim 🤍');
+/* ── Cover ───────────────────────────────────────*/
+#cover {
+    position: fixed; inset: 0; z - index: 9000;
+    display: flex; flex - direction: column;
+    justify - content: center; align - items: center;
+    text - align: center;
+    transition: opacity 1.3s ease, transform 1.3s cubic - bezier(.77, 0, .18, 1);
 }
 
-// ── Copy Rekening ────────────────────────────────
-function copyText(id) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text).then(() => showToast('Nomor rekening berhasil disalin!'));
+.cover - arch { display: none!important; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+.cover - name {
+    font - family: 'Cormorant Garamond', serif;
+    font - size: clamp(2.8rem, 9vw, 5rem);
+    font - weight: 300; line - height: 1;
+    animation: fadeUp 1.5s ease forwards .3s; opacity: 0;
+}
+.cover - label {
+    font - family: 'Jost', sans - serif;
+    font - size: .62rem; letter - spacing: 5px; text - transform: uppercase;
+    color: rgba(253, 248, 245, .52); margin - bottom: 10px;
+    animation: fadeUp 1.5s ease forwards .1s; opacity: 0;
+}
+.cover - date - inline {
+    display: inline - flex; align - items: center; gap: 14px;
+    animation: fadeUp 1.5s ease forwards .45s; opacity: 0;
+    margin - top: 10px;
+}
+.cover - date - inline.vline { width: 1px; height: 26px; background: rgba(240, 222, 200, .35); }
+.cover - date - inline p { font - family: 'Jost', sans - serif; font - size: .72rem; letter - spacing: 4px; text - transform: uppercase; color: rgba(253, 248, 245, .5); }
+
+.guest - box {
+    margin: 24px 0; padding: 10px 24px;
+    border - top: 1px solid var(--gold - line); border - bottom: 1px solid var(--gold - line);
+    animation: fadeUp 1.5s ease forwards .5s; opacity: 0;
+}
+.guest - box p { font - size: .62rem; letter - spacing: 3px; text - transform: uppercase; color: rgba(253, 248, 245, .48); margin - bottom: 4px; }
+#guest - name { font - family: 'Cormorant Garamond', serif; font - size: 1.3rem; font - weight: 400; }
+
+.btn - open {
+    font - family: 'Jost', sans - serif; font - size: .68rem;
+    letter - spacing: 4px; text - transform: uppercase;
+    color: var(--cream); background: transparent;
+    border: 1px solid rgba(240, 222, 200, .4);
+    padding: 13px 34px; border - radius: 50px;
+    cursor: pointer; backdrop - filter: blur(4px);
+    transition:all .4s ease;
+    animation:fadeUp 1.5s ease forwards .75s; opacity: 0;
+}
+.btn - open:hover {
+    background: rgba(240, 222, 200, .1);
+    border - color: rgba(240, 222, 200, .75);
+    box - shadow: 0 0 22px rgba(240, 222, 200, .18);
+    transform: translateY(-2px);
 }
 
-// ── Toast ─────────────────────────────────────────
-function showToast(msg) {
-    let toast = document.getElementById('toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast';
-        toast.style.cssText = `
-            position:fixed; bottom:82px; left:50%; transform:translateX(-50%);
-            background:rgba(20,8,8,.88); color:#F0DEC8;
-            border:1px solid rgba(240,222,200,.28); border-radius:30px;
-            padding:11px 26px; font-family:'Jost',sans-serif; font-size:.75rem;
-            letter-spacing:1px; z-index:99999; backdrop-filter:blur(8px);
-            opacity:0; transition:opacity .35s ease; white-space:nowrap;
-        `;
-        document.body.appendChild(toast);
-    }
-    toast.textContent = msg;
-    toast.style.opacity = '1';
-    setTimeout(() => { toast.style.opacity = '0'; }, 2800);
+/* ── Main ────────────────────────────────────────*/
+#main {
+    position: relative; z - index: 2;
+    display: none; opacity: 0;
+    transition:opacity 1.5s ease;
 }
 
-// ── Wish appear animation ────────────────────────
-const style = document.createElement('style');
-style.textContent = `@keyframes wishAppear { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }`;
-document.head.appendChild(style);
+/* ── Glass Sections ─────────────────────────────*/
+.section { padding: 80px 24px; position: relative; }
+
+/* Minimal blur — foto background tetap keliatan */
+.glass - wrap {
+    max - width: 820px; margin: 0 auto;
+    background: rgba(20, 8, 8, 0.38);
+    border: 1px solid rgba(255, 255, 255, .13);
+    border - radius: 18px;
+    backdrop - filter: blur(3px);
+    -webkit - backdrop - filter: blur(3px);
+    padding: clamp(28px, 5vw, 52px);
+    box - shadow: 0 8px 28px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .10);
+    text - align: center;
+}
+
+.section - label {
+    font - size: .6rem; letter - spacing: 5px; text - transform: uppercase;
+    color: var(--rose - light); margin - bottom: 10px;
+}
+.section - title {
+    font - family: 'Cormorant Garamond', serif;
+    font - size: clamp(1.8rem, 4.5vw, 2.7rem);
+    font - weight: 300; margin - bottom: 6px; line - height: 1.1;
+}
+.divider {
+    width: 40px; height: 1px;
+    background: var(--gold - line);
+    margin: 16px auto 26px;
+}
+
+/* ── Couple ──────────────────────────────────────*/
+.couple - grid {
+    display: grid;
+    grid - template - columns: 1fr 50px 1fr;
+    align - items: center;
+}
+.couple - card { text - align: center; }
+
+.arch - frame {
+    width: min(155px, 42vw); aspect - ratio: 2 / 3;
+    border - radius: 50 % 50 % 6px 6px / 38 % 38 % 6px 6px;
+    overflow: hidden; margin: 0 auto 16px;
+    border: 1px solid var(--gold - line);
+    box - shadow: 0 10px 30px rgba(0, 0, 0, .28);
+}
+.arch - frame img { width: 100 %; height: 100 %; object - fit: cover; }
+
+.couple - name { font - family: 'Cormorant Garamond', serif; font - size: 1.25rem; font - weight: 400; margin - bottom: 5px; }
+.couple - parent { font - size: .72rem; line - height: 1.65; color: rgba(253, 248, 245, .6); }
+.and - mark { font - family: 'Cormorant Garamond', serif; font - size: 2.6rem; font - weight: 300; text - align: center; color: rgba(240, 222, 200, .45); }
+
+/* ── Countdown — satu baris sejajar ─────────────*/
+.countdown - row {
+    display: flex;
+    justify - content: center;
+    align - items: center;
+    gap: 12px;
+    flex - wrap: nowrap;
+}
+.cd - box { text - align: center; min - width: 48px; }
+.cd - num { font - family: 'Cormorant Garamond', serif; font - size: clamp(1.5rem, 5vw, 2.4rem); font - weight: 300; line - height: 1; }
+.cd - lbl { font - size: .5rem; letter - spacing: 3px; text - transform: uppercase; color: rgba(253, 248, 245, .45); margin - top: 5px; }
+
+/* ── Event Cards ────────────────────────────────*/
+.event - grid { display: grid; grid - template - columns: 1fr 1fr; gap: 20px; }
+.event - card {
+    background: rgba(253, 248, 245, .07);
+    border: 1px solid var(--glass - border);
+    border - radius: 12px; padding: 26px 20px;
+    text - align: center;
+    backdrop - filter: blur(3px);
+    transition:transform .35s ease, border - color .35s ease;
+}
+.event - card:hover { transform: translateY(-5px); border - color: rgba(240, 222, 200, .35); }
+.event - icon { font - size: 1.4rem; color: var(--rose - light); margin - bottom: 14px; }
+.event - name { font - family: 'Cormorant Garamond', serif; font - size: 1.25rem; font - weight: 400; margin - bottom: 10px; }
+.event - time { font - size: .74rem; line - height: 1.75; color: rgba(253, 248, 245, .65); margin - bottom: 14px; }
+.event - place { font - size: .74rem; line - height: 1.65; color: rgba(253, 248, 245, .5); border - top: 1px solid rgba(255, 255, 255, .08); padding - top: 12px; }
+
+/* ── Gallery ────────────────────────────────────*/
+.gallery - swiper { width: 100 %; overflow: hidden; padding: 8px 0 36px; }
+.swiper - slide {
+    width: min(230px, 65vw);
+    border - radius: 10px; overflow: hidden;
+    aspect - ratio: 2 / 3;
+    box - shadow: 0 14px 36px rgba(0, 0, 0, .38);
+    border: 1px solid rgba(255, 255, 255, .1);
+}
+.swiper - slide img { width: 100 %; height: 100 %; object - fit: cover; filter: brightness(.94); transition: .5s ease; }
+.swiper - slide:hover img { filter: brightness(1.04); transform: scale(1.03); }
+.swiper - pagination - bullet { background: rgba(253, 248, 245, .35)!important; }
+.swiper - pagination - bullet - active { background: #F0DEC8!important; }
+
+/* ── Turut Mengundang ───────────────────────────*/
+.turut - grid { display: grid; grid - template - columns: 1fr 1fr; gap: 16px; text - align: left; margin - top: 20px; }
+.turut - col ol { padding - left: 16px; }
+.turut - col li {
+    font - size: clamp(.65rem, 2.3vw, .78rem);
+    line - height: 1.9; color: rgba(253, 248, 245, .78);
+    font - family: 'Jost', sans - serif; font - weight: 300;
+}
+
+/* ── RSVP ────────────────────────────────────────*/
+.rsvp - grid {
+    display: grid;
+    grid - template - columns: 1fr 1fr;
+    gap: 36px;
+    text - align: left;
+}
+
+.input - field {
+    width: 100 %; background: rgba(0, 0, 0, .22);
+    border: 1px solid rgba(255, 255, 255, .13); border - radius: 7px;
+    color: var(--cream); padding: 12px 16px;
+    font - family: 'Jost', sans - serif; font - size: .84rem;
+    margin - bottom: 14px; outline: none; transition: .3s;
+}
+.input - field:focus { border - color: rgba(240, 222, 200, .5); background: rgba(0, 0, 0, .35); }
+.input - field::placeholder { color: rgba(253, 248, 245, .3); }
+
+.btn - submit {
+    width: 100 %; background: rgba(240, 222, 200, .08);
+    border: 1px solid rgba(240, 222, 200, .4); color: #F0DEC8;
+    padding: 13px; border - radius: 7px; cursor: pointer;
+    font - family: 'Jost', sans - serif; font - size: .68rem;
+    letter - spacing: 3px; text - transform: uppercase;
+    transition:all .35s ease;
+}
+.btn - submit:hover { background: rgba(240, 222, 200, .18); box - shadow: 0 0 18px rgba(240, 222, 200, .12); }
+
+/* ── Wish Cards & Reply ─────────────────────────*/
+.wish - card {
+    border - bottom: 1px solid rgba(255, 255, 255, .07);
+    padding: 14px 0;
+}
+.wish - name { font - size: .92rem; color: #F0DEC8; margin - bottom: 4px; font - family: 'Cormorant Garamond', serif; }
+.wish - text { font - size: .76rem; line - height: 1.55; color: rgba(253, 248, 245, .65); margin - bottom: 5px; }
+.wish - time { font - size: .58rem; color: rgba(253, 248, 245, .28); letter - spacing: 1px; }
+.wishes - scroll { max - height: 320px; overflow - y: auto; scrollbar - width: thin; scrollbar - color: rgba(240, 222, 200, .18) transparent; }
+
+/* Reply button */
+.btn - reply {
+    background: transparent;
+    border: none;
+    color: rgba(240, 222, 200, .5);
+    font - family: 'Jost', sans - serif;
+    font - size: .62rem;
+    letter - spacing: 2px;
+    text - transform: uppercase;
+    cursor: pointer;
+    padding: 5px 0 0;
+    transition: .25s;
+}
+.btn - reply:hover { color: rgba(240, 222, 200, .9); }
+
+/* Reply send button */
+.btn - send - reply {
+    background: rgba(240, 222, 200, .1);
+    border: 1px solid rgba(240, 222, 200, .3);
+    color: #F0DEC8;
+    font - family: 'Jost', sans - serif;
+    font - size: .62rem;
+    letter - spacing: 2px;
+    text - transform: uppercase;
+    padding: 8px 18px;
+    border - radius: 6px;
+    cursor: pointer;
+    transition: .3s;
+}
+.btn - send - reply:hover { background: rgba(240, 222, 200, .2); }
+
+/* Reply bubble */
+.reply - bubble {
+    margin - top: 10px;
+    background: rgba(176, 123, 123, .12);
+    border - left: 2px solid rgba(176, 123, 123, .45);
+    border - radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    animation:wishAppear .4s ease forwards;
+}
+.reply - author {
+    font - family: 'Cormorant Garamond', serif;
+    font - size: .82rem;
+    color: var(--rose - light);
+    margin - bottom: 5px;
+    font - style: italic;
+}
+.reply - text {
+    font - size: .76rem;
+    line - height: 1.55;
+    color: rgba(253, 248, 245, .7);
+}
+
+/* ── Amplop Digital ─────────────────────────────*/
+.rekening - box {
+    display: flex; align - items: center; justify - content: space - between;
+    background: rgba(0, 0, 0, .28); border: 1px solid rgba(255, 255, 255, .11);
+    border - radius: 9px; padding: 16px 22px; margin: 18px 0;
+}
+.rek - num { font - family: 'Cormorant Garamond', serif; font - size: 1.4rem; letter - spacing: 3px; }
+.btn - copy {
+    font - size: .6rem; letter - spacing: 2px; text - transform: uppercase;
+    color: #F0DEC8; background: transparent;
+    border: 1px solid rgba(240, 222, 200, .35); border - radius: 20px;
+    padding: 7px 16px; cursor: pointer; transition: .3s;
+}
+.btn - copy:hover { background: rgba(240, 222, 200, .1); }
+
+/* ── Closing ────────────────────────────────────*/
+.closing - section {
+    padding: 80px 24px;
+    text - align: center; position: relative; z - index: 2;
+}
+.closing - section.glass - wrap { max - width: 560px; }
+
+/* ── Music ───────────────────────────────────────*/
+#music - btn {
+    position: fixed; bottom: 26px; right: 26px; z - index: 9000;
+    width: 42px; height: 42px; border - radius: 50 %;
+    background: rgba(20, 8, 8, .58); border: 1px solid rgba(240, 222, 200, .3);
+    color: #F0DEC8; display: flex; justify - content: center; align - items: center;
+    cursor: pointer; backdrop - filter: blur(6px); transition: .3s;
+}
+#music - btn:hover { border - color: rgba(240, 222, 200, .7); box - shadow: 0 0 14px rgba(240, 222, 200, .18); }
+#music - btn.playing i { animation:spin 4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Fixed Background ───────────────────────────*/
+#bg - fixed {
+    position: fixed; inset: 0; z - index: -1;
+    background:#1A1010; overflow: hidden;
+}
+#bg - fixed img {
+    width: 100 %; height: 100 %;
+    object - fit: contain;
+    object - position:center top;
+    opacity: 0.88;
+}
+
+/* ── Responsive ─────────────────────────────────*/
+@media(max - width: 640px) {
+    .couple - grid { grid - template - columns: 1fr; gap: 28px; }
+    .and - mark { display: none; }
+    .event - grid { grid - template - columns: 1fr; gap: 14px; }
+    .turut - grid { grid - template - columns: 1fr 1fr; }
+    .glass - wrap { padding: 24px 16px; }
+    .rsvp - grid { grid - template - columns: 1fr!important; gap: 28px!important; }
+    .rekening - box { flex - direction: column; gap: 10px; text - align: center; }
+    .cover - name { font - size: clamp(2.2rem, 8vw, 3.6rem)!important; }
+    .arch - frame { width: min(135px, 36vw)!important; }
+    .section { padding: 50px 16px; }
+}
