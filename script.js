@@ -154,11 +154,11 @@ function replyTo(button) {
         const replyDiv = document.createElement('div');
         replyDiv.style.marginTop = '15px';
         replyDiv.style.padding = '12px';
-        replyDiv.style.background = 'rgba(197, 131, 142, 0.1)';
+        replyDiv.style.background = 'rgba(212, 175, 55, 0.1)';
         replyDiv.style.borderRadius = '8px';
-        replyDiv.style.borderLeft = '3px solid #C5838E';
+        replyDiv.style.borderLeft = '3px solid #D4AF37';
         replyDiv.innerHTML = `
-            <p style="font-weight: 600; font-size: 0.85rem; color: #5A353D; margin-bottom: 5px;">Mempelai <i class="fas fa-heart" style="color: #C5838E; font-size: 0.7rem;"></i></p>
+            <p style="font-weight: 600; font-size: 0.85rem; color: #5A353D; margin-bottom: 5px;">Mempelai <i class="fas fa-heart" style="color: #D4AF37; font-size: 0.7rem;"></i></p>
             <p style="font-size: 0.85rem; color: #8A5A64;">${replyText}</p>
         `;
         button.parentElement.parentElement.appendChild(replyDiv);
@@ -178,16 +178,16 @@ document.getElementById('wedding-form').addEventListener('submit', function (e) 
     newComment.style.padding = '20px';
     newComment.style.background = 'rgba(255,255,255,0.7)';
     newComment.style.borderRadius = '10px';
-    newComment.style.border = '1px solid rgba(197, 131, 142, 0.2)';
+    newComment.style.border = '1px solid rgba(212, 175, 55, 0.2)';
     
     newComment.innerHTML = `
         <p style="font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; color: #5A353D;">
-            ${nama} <i class="fas fa-check-circle" style="color: ${hadir === 'Hadir' ? '#C5838E' : '#8A5A64'}; font-size: 0.8rem; margin-left: 5px;"></i>
+            ${nama} <i class="fas fa-check-circle" style="color: ${hadir === 'Hadir' ? '#D4AF37' : '#8A5A64'}; font-size: 0.8rem; margin-left: 5px;"></i>
         </p>
         <p style="font-size: 0.9rem; color: #8A5A64; margin-bottom: 10px; line-height: 1.5;">${ucapan}</p>
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <p style="font-size: 0.75rem; color: #9A5B66; font-family: 'Montserrat';"><i class="far fa-clock mr-1"></i> Baru saja</p>
-            <button onclick="replyTo(this)" style="background: none; border: none; color: #C5838E; font-size: 0.75rem; cursor: pointer; font-weight: 600;">Balas</button>
+            <button onclick="replyTo(this)" style="background: none; border: none; color: #D4AF37; font-size: 0.75rem; cursor: pointer; font-weight: 600;">Balas</button>
         </div>
     `;
 
@@ -210,7 +210,7 @@ if(window.particlesJS) {
     particlesJS("particles-js", {
         "particles": {
             "number": { "value": 40, "density": { "enable": true, "value_area": 1000 } },
-            "color": { "value": ["#ffffff", "#FFD1DC", "#C5838E"] },
+            "color": { "value": ["#ffffff", "#FFD1DC", "#D4AF37"] },
             "shape": { 
                 "type": "image",
                 "image": { "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiPjxwYXRoIGQ9Ik0xMiAyMS4zNWwtMS40NS0xLjMyQzUuNCAxNS4zNiAyIDEyLjI4IDIgOC41IDIgNS40MiA0LjQyIDMgNy41IDNjMS43NCAwIDMuNDEuODEgNC41IDIuMDlDMTMuMDkgMy44MSAxNC43NiAzIDE2LjUgMyAxOS41OCAzIDIyIDUuNDIgMjIgOC41YzAgMy43OC0zLjQgNi44Ni04LjU1IDExLjU0TDEyIDIxLjM1eiIvPjwvc3ZnPg==", "width": 100, "height": 100 }

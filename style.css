@@ -3,8 +3,8 @@
     --cream: #FFF5F7;
     --beige: #FDE8ED;
     --champagne: #FFD1DC;
-    --gold: #C5838E;
-    --gold-gradient: linear-gradient(135deg, #E6B8C0, #C5838E, #9A5B66);
+    --gold: #D4AF37;
+    --gold-gradient: linear-gradient(135deg, #F9F0CE, #D4AF37, #9B7820);
     --brown: #8A5A64;
     --dark-brown: #5A353D;
     --nude: #F4C2C2;
@@ -32,7 +32,7 @@ body {
 .sans-font { font-family: 'Montserrat', sans-serif; }
 
 .gold-text {
-    background: linear-gradient(135deg, #E6B8C0, #C5838E, #9A5B66, #E6B8C0);
+    background: linear-gradient(135deg, #F9F0CE, #D4AF37, #9B7820, #F9F0CE);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -214,7 +214,7 @@ body {
 @keyframes scrollLine { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 50.1% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(2deg); } 100% { transform: translateY(0px) rotate(0deg); } }
-@keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(197, 131, 142, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(197, 131, 142, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 131, 142, 0); } }
+@keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
 
 /* Responsive */
 @media (max-width: 768px) {
