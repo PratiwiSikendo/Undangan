@@ -17,13 +17,15 @@
 
     <!-- ── COVER / OPENING SCREEN ────────────────────── -->
     <div id="cover">
-        <div class="cover-arch">
-            <img src="assets/prewed4baru.jpeg" alt="Christian & Anggita">
-        </div>
-
         <p class="cover-label">The Wedding of</p>
-        <h1 class="cover-name gold-text serif">Christian<br><em style="font-size:.5em; -webkit-text-fill-color: rgba(253,248,245,.45); font-family:'Cormorant Garamond',serif;">&amp;</em><br>Anggita</h1>
-        <p class="cover-meta">30 · 05 · 2026</p>
+        <h1 class="cover-name gold-text serif">Christian &amp; Anggita</h1>
+
+        <!-- Date inline with decorative lines -->
+        <div class="cover-date-inline">
+            <div class="vline"></div>
+            <p>30 · Mei · 2026</p>
+            <div class="vline"></div>
+        </div>
 
         <div class="guest-box">
             <p>Kepada Yth.</p>
@@ -48,9 +50,14 @@
         <section class="section" style="padding: 80px 24px 40px; text-align:center;">
             <div class="glass-wrap" style="padding: 40px 32px;" data-aos="fade-up">
                 <p class="section-label">Welcome to Our Big Day</p>
-                <h1 class="serif gold-text" style="font-size:clamp(3rem,9vw,5rem); font-weight:300; line-height:1.05;">
-                    Christian &amp; Anggita
-                </h1>
+                <!-- Name and date on same line -->
+                <div style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;">
+                    <h1 class="serif gold-text" style="font-size:clamp(2.2rem,6vw,3.5rem); font-weight:300; line-height:1;">
+                        Christian &amp; Anggita
+                    </h1>
+                    <div style="width:1px; height:40px; background:rgba(240,222,200,.3); flex-shrink:0;"></div>
+                    <p class="serif" style="font-size:clamp(.9rem,2.5vw,1.1rem); color:rgba(240,222,200,.7); font-weight:300; white-space:nowrap;">30 · 05 · 2026</p>
+                </div>
                 <div class="divider"></div>
 
                 <!-- Countdown -->
@@ -223,7 +230,7 @@
                     <div class="divider"></div>
                 </div>
 
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;" class="rsvp-grid">
                     <!-- Form -->
                     <div>
                         <form id="rsvp-form" onsubmit="submitRSVP(event)">

@@ -26,12 +26,13 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 
-    /* THE magic: single fixed photo */
+    /* THE magic: single fixed photo – NO CROP/ZOOM */
     background-image: url('assets/pink.jpeg');
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: center top;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-color: #1A1010;
 }
 
 /* permanent dark wash over the photo */
@@ -75,17 +76,8 @@ body::before {
     transition: opacity 1.4s ease, transform 1.4s cubic-bezier(.77,0,.18,1);
 }
 
-.cover-arch {
-    width: min(260px, 68vw); aspect-ratio: 2/3;
-    border-radius: 50% 50% 8px 8px / 40% 40% 6px 6px;
-    overflow: hidden;
-    border: 1px solid rgba(240,222,200,0.6);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 6px rgba(240,222,200,0.08);
-    margin-bottom: 32px;
-    animation: fadeUp 1.4s ease forwards;
-    opacity: 0;
-}
-.cover-arch img { width: 100%; height: 100%; object-fit: cover; }
+/* cover photo arch removed – background IS the photo */
+.cover-arch { display: none !important; }
 
 @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 
@@ -102,6 +94,15 @@ body::before {
     color: rgba(253,248,245,.55); margin-bottom: 10px;
     animation: fadeUp 1.6s ease forwards .1s; opacity: 0;
 }
+
+/* date INLINE beside the name */
+.cover-date-inline {
+    display: inline-flex; align-items: center; gap: 16px;
+    animation: fadeUp 1.6s ease forwards .45s; opacity: 0;
+    margin-top: 12px;
+}
+.cover-date-inline .vline { width: 1px; height: 28px; background: rgba(240,222,200,.4); }
+.cover-date-inline p { font-family: 'Jost', sans-serif; font-size: .75rem; letter-spacing: 4px; text-transform: uppercase; color: rgba(253,248,245,.55); }
 
 .cover-meta {
     font-family: 'Jost', sans-serif;
@@ -320,9 +321,15 @@ body::before {
 
 /* ── Responsive ─────────────────────────────────*/
 @media (max-width: 640px) {
+    body { background-attachment: scroll; background-size: cover; background-position: center top; }
     .couple-grid { grid-template-columns: 1fr; gap: 32px; }
     .and-mark { display: none; }
-    .event-grid { grid-template-columns: 1fr; }
+    .event-grid { grid-template-columns: 1fr; gap: 16px; }
     .turut-grid { grid-template-columns: 1fr 1fr; }
-    body { background-attachment: scroll; }
+    .glass-wrap { padding: 28px 18px; }
+    /* RSVP stacked on mobile */
+    .glass-wrap > div[style*='grid-template-columns:1fr 1fr'] { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .rekening-box { flex-direction: column; gap: 12px; text-align: center; }
+    .cover-name { font-size: clamp(2.4rem, 9vw, 4rem) !important; }
+    .arch-frame { width: min(150px, 38vw) !important; }
 }
