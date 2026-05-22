@@ -155,30 +155,40 @@
             <div style="max-width:860px;margin:0 auto;text-align:center;">
                 <h2 class="serif gold-text section-title">Our Story</h2>
                 <div class="divider"></div>
-                <!--
-                    KOLASE GRID: tambah foto dengan copy col-item dan ganti src.
-                    Portrait  = col-item
-                    Landscape = col-item landscape
-                    Featured  = col-item featured (foto besar, span 2 kolom)
-                -->
+
                 <div class="collage-grid" style="margin-top:28px;">
 
-    <!-- Baris 1: 2 foto portrait pink -->
-    <div class="col-item"><img src="assets/prewed1.jpeg" alt="Prewed"></div>
-    <div class="col-item"><img src="assets/prewed3.jpeg" alt="Prewed"></div>
+                    <!-- Baris 1: 2 foto portrait pink -->
+                    <div class="col-item">
+                        <img src="assets/prewed1.jpeg" alt="Prewed">
+                    </div>
+                    <div class="col-item">
+                        <img src="assets/prewed3.jpeg" alt="Prewed">
+                    </div>
 
-    <!-- Baris 2: 2 foto outdoor -->
-    <div class="col-item"><img src="assets/manado.png" alt="Prewed"></div>
-    <div class="col-item"><img src="assets/talaud.jpeg" alt="Prewed"></div>
+                    <!-- Baris 2: 2 foto outdoor -->
+                    <div class="col-item">
+                        <img src="assets/manado.png" alt="Prewed">
+                    </div>
+                    <div class="col-item">
+                        <img src="assets/talaud.jpeg" alt="Prewed">
+                    </div>
 
-    <!-- Baris 3: 2 foto hitam putih — object-position bottom agar muka keliatan -->
-    <div class="col-item"><img src="assets/BG (2).jpeg" alt="Prewed" style="object-position:center bottom;"></div>
-    <div class="col-item"><img src="assets/BG (3).jpeg" alt="Prewed" style="object-position:center bottom;"></div>
+                    <!-- Baris 3: 2 foto hitam putih -->
+                    <div class="col-item">
+                        <img src="assets/BG (2).jpeg" alt="Prewed" style="object-position:center bottom;">
+                    </div>
+                    <div class="col-item">
+                        <img src="assets/BG (3).jpeg" alt="Prewed" style="object-position:center bottom;">
+                    </div>
 
-    <!-- Baris 4: landscape penuh -->
-    <div class="col-item landscape-full"><img src="assets/prewed7.jpeg" alt="Prewed"></div>
+                    <!-- Baris 4: 1 foto landscape penuh -->
+                    <div class="col-item landscape-full">
+                        <img src="assets/prewed7.jpeg" alt="Prewed">
+                    </div>
 
-</div>
+                </div>
+            </div>
         </section>
 
         <!-- 6 · TURUT MENGUNDANG -->
@@ -247,7 +257,6 @@
                                 <div class="wish-name serif">Keluarga Besar <span style="font-size:.7rem;color:rgba(240,222,200,.4);">✦</span></div>
                                 <div class="wish-text">Selamat menempuh hidup baru. Semoga rumah tangga kalian selalu diberkati Tuhan dan penuh kebahagiaan.</div>
                                 <div class="wish-time">Hadir · Baru saja</div>
-                                <!-- Reply button -->
                                 <button class="btn-reply" onclick="toggleReply(this)">
                                     <i class="fas fa-reply"></i> Balas
                                 </button>
@@ -255,7 +264,6 @@
                                     <input type="text" class="input-field reply-input" placeholder="Tulis balasan dari Christian &amp; Anggita…" style="margin-top:10px;margin-bottom:8px;font-size:.78rem;padding:10px 14px;">
                                     <button class="btn-send-reply" onclick="sendReply(this)">Kirim Balasan</button>
                                 </div>
-                                <!-- Reply section placeholder -->
                                 <div class="reply-section"></div>
                             </div>
                         </div>
@@ -264,7 +272,7 @@
             </div>
         </section>
 
-        <!-- 8 · AMPLOP DIGITAL (BCA only) -->
+        <!-- 8 · AMPLOP DIGITAL -->
         <section class="section" style="padding:40px 24px;" data-aos="fade-up">
             <div class="glass-wrap center" style="max-width:500px;">
                 <p class="section-label">Wedding Gift</p>
