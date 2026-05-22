@@ -1,230 +1,170 @@
-// URL Parameter for Guest Name
-document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    let guest = params.get("to");
-    
-    if (guest) {
-        // Decode and Title Case or UPPERCASE
-        guest = decodeURIComponent(guest).toUpperCase();
-    } else {
-        guest = "TAMU UNDANGAN";
-    }
-    
-    document.getElementById('guest-name-cover').innerText = guest;
+// URL Parameters for Guest Name
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to') || 'Tamu Kehormatan';
+    document.getElementById('guest-name').innerText = guestName;
+
+    // Initialize AOS
+    AOS.init({
+        once: true,
+        offset: 50
+    });
+
+    // Remove loading screen
+    setTimeout(() => {
+        const loader = document.getElementById('loading-screen');
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 1500);
+    }, 1000);
 });
 
-// Open Invitation Animation
+// Particles.js (Gold Dust Effect)
+particlesJS("particles-js", {
+    "particles": {
+        "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": ["#D4AF37", "#E5C78B", "#F5F2EB"] },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
+        "size": { "value": 3, "random": true, "anim": { "enable": false } },
+        "line_linked": { "enable": false },
+        "move": { "enable": true, "speed": 0.5, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true }
+    },
+    "retina_detect": true
+});
+
+// Opening Animation & Music
+const audio = document.getElementById("bg-music");
+const musicBtn = document.getElementById("music-btn");
+let isPlaying = false;
+
 function openInvitation() {
-    const cover = document.getElementById('cover-screen');
-    const main = document.getElementById('main-content');
-    const music = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-
-    // Smooth transform up like a cinematic curtain
-    cover.style.transform = 'translateY(-100vh)';
+    const openingScreen = document.getElementById('opening-screen');
+    const mainContent = document.getElementById('main-content');
     
+    // Smooth cinematic transition
+    openingScreen.style.transform = 'translateY(-100%)';
     setTimeout(() => {
-        cover.style.display = 'none';
-        main.style.display = 'block';
-        
-        // Initialize AOS after main content is visible
-        AOS.init({
-            duration: 1500,
-            once: true,
-            offset: 100,
-            easing: 'ease-out-cubic'
-        });
+        openingScreen.style.display = 'none';
+        mainContent.style.display = 'block';
+        setTimeout(() => {
+            mainContent.style.opacity = '1';
+            AOS.refresh();
+        }, 100);
+    }, 1500);
 
-        // Initialize Swiper for Cinematic Gallery
-        new Swiper('.gallery-swiper', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            coverflowEffect: {
-                rotate: 15,
-                stretch: 0,
-                depth: 200,
-                modifier: 1,
-                slideShadows: true,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-            },
-            initialSlide: 1,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            }
-        });
-
-        document.body.classList.remove('overflow-hidden');
-    }, 1200);
-
-    // Play Audio (Fade In effect can be simulated or just play)
-    music.volume = 0;
-    music.play().catch(e => console.log("Auto-play prevented by browser"));
-    
-    // Audio Fade-in
-    let vol = 0;
-    const fadeAudio = setInterval(() => {
-        if (vol < 0.9) {
-            vol += 0.1;
-            music.volume = vol;
-        } else {
-            clearInterval(fadeAudio);
-            music.volume = 1;
-        }
-    }, 200);
-
-    musicBtn.classList.add('playing');
+    // Play Music
+    audio.play().then(() => {
+        isPlaying = true;
+        musicBtn.classList.add("playing");
+    }).catch(err => console.log("Audio autoplay prevented by browser"));
 }
 
-// Audio Control
 function toggleMusic() {
-    const music = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-
-    if (music.paused) {
-        music.play();
-        musicBtn.classList.add('playing');
+    if (isPlaying) {
+        audio.pause();
+        musicBtn.classList.remove("playing");
     } else {
-        music.pause();
-        musicBtn.classList.remove('playing');
+        audio.play();
+        musicBtn.classList.add("playing");
     }
+    isPlaying = !isPlaying;
 }
 
 // Countdown Timer
-function startCountdown() {
-    const weddingDate = new Date("May 30, 2026 09:30:00").getTime();
-    const timer = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = weddingDate - now;
+const countdownDate = new Date("May 30, 2026 10:00:00").getTime();
+const x = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
 
-        if (distance < 0) {
-            clearInterval(timer);
-            return;
-        }
-        
-        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((distance % (1000 * 60)) / 1000);
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("days").innerText = d < 10 ? '0'+d : d;
-        document.getElementById("hours").innerText = h < 10 ? '0'+h : h;
-        document.getElementById("minutes").innerText = m < 10 ? '0'+m : m;
-        document.getElementById("seconds").innerText = s < 10 ? '0'+s : s;
-    }, 1000);
-}
-startCountdown();
+    document.getElementById("cd-hari").innerHTML = days < 10 ? '0'+days : days;
+    document.getElementById("cd-jam").innerHTML = hours < 10 ? '0'+hours : hours;
+    document.getElementById("cd-menit").innerHTML = minutes < 10 ? '0'+minutes : minutes;
+    document.getElementById("cd-detik").innerHTML = seconds < 10 ? '0'+seconds : seconds;
 
-// Toggle Gift Container
-function toggleGift() {
-    const container = document.getElementById('gift-container');
-    const btn = document.getElementById('btn-gift');
-    
-    if (container.style.display === 'none') {
-        container.style.display = 'block';
-        setTimeout(() => container.style.opacity = '1', 50);
-        btn.innerHTML = '<i class="fas fa-gift mr-2"></i> Tutup';
-    } else {
-        container.style.opacity = '0';
-        setTimeout(() => container.style.display = 'none', 500);
-        btn.innerHTML = '<i class="fas fa-gift mr-2"></i> Kirim Hadiah';
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("cd-hari").innerHTML = "00";
+        document.getElementById("cd-jam").innerHTML = "00";
+        document.getElementById("cd-menit").innerHTML = "00";
+        document.getElementById("cd-detik").innerHTML = "00";
     }
+}, 1000);
+
+// Modal Gallery
+const modal = document.getElementById('img-modal');
+const modalImg = document.getElementById('modal-img');
+
+function openModal(src) {
+    modal.classList.add('show');
+    modalImg.src = src;
+    document.body.style.overflow = 'hidden'; // prevent scrolling
+}
+
+function closeModal() {
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
 }
 
 // Copy Rekening
 function copyRekening() {
-    const rek = document.getElementById('rek-bca').innerText;
+    const rek = document.getElementById('rekening').innerText;
     navigator.clipboard.writeText(rek).then(() => {
-        alert('Nomor Rekening berhasil disalin: ' + rek);
-    }).catch(err => {
-        console.error('Gagal menyalin', err);
+        Swal.fire({
+            title: 'Berhasil!',
+            text: 'Nomor rekening berhasil disalin',
+            icon: 'success',
+            background: '#141414',
+            color: '#D4AF37',
+            confirmButtonColor: '#D4AF37',
+            confirmButtonText: 'Tutup'
+        });
     });
 }
 
-// Reply to Comment
-function replyTo(button) {
-    const replyText = prompt("Masukkan balasan Anda:");
-    if (replyText) {
-        const replyDiv = document.createElement('div');
-        replyDiv.style.marginTop = '15px';
-        replyDiv.style.padding = '12px';
-        replyDiv.style.background = 'rgba(212, 175, 55, 0.1)';
-        replyDiv.style.borderRadius = '8px';
-        replyDiv.style.borderLeft = '3px solid #D4AF37';
-        replyDiv.innerHTML = `
-            <p style="font-weight: 600; font-size: 0.85rem; color: #5A353D; margin-bottom: 5px;">Mempelai <i class="fas fa-heart" style="color: #D4AF37; font-size: 0.7rem;"></i></p>
-            <p style="font-size: 0.85rem; color: #8A5A64;">${replyText}</p>
-        `;
-        button.parentElement.parentElement.appendChild(replyDiv);
-    }
-}
-
-// RSVP Form Submit
-document.getElementById('wedding-form').addEventListener('submit', function (e) {
+// RSVP Submit
+function submitRSVP(e) {
     e.preventDefault();
-    const btn = this.querySelector('button');
-    const nama = document.getElementById('wish-nama').value;
-    const ucapan = document.getElementById('wish-ucapan').value;
-    const hadir = document.getElementById('wish-hadir').value;
-
-    const newComment = document.createElement('div');
-    newComment.classList.add('mb-4');
-    newComment.style.padding = '20px';
-    newComment.style.background = 'rgba(255,255,255,0.7)';
-    newComment.style.borderRadius = '10px';
-    newComment.style.border = '1px solid rgba(212, 175, 55, 0.2)';
+    const nama = document.getElementById('nama').value;
+    const kehadiran = document.getElementById('kehadiran').value;
+    const ucapan = document.getElementById('ucapan').value;
     
-    newComment.innerHTML = `
-        <p style="font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; color: #5A353D;">
-            ${nama} <i class="fas fa-check-circle" style="color: ${hadir === 'Hadir' ? '#D4AF37' : '#8A5A64'}; font-size: 0.8rem; margin-left: 5px;"></i>
-        </p>
-        <p style="font-size: 0.9rem; color: #8A5A64; margin-bottom: 10px; line-height: 1.5;">${ucapan}</p>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <p style="font-size: 0.75rem; color: #9A5B66; font-family: 'Montserrat';"><i class="far fa-clock mr-1"></i> Baru saja</p>
-            <button onclick="replyTo(this)" style="background: none; border: none; color: #D4AF37; font-size: 0.75rem; cursor: pointer; font-weight: 600;">Balas</button>
-        </div>
+    // Add to UI
+    const container = document.getElementById('comments-container');
+    const newDiv = document.createElement('div');
+    newDiv.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+    newDiv.style.paddingBottom = '15px';
+    newDiv.style.marginBottom = '15px';
+    newDiv.style.animation = 'fadeInUp 0.8s ease forwards';
+    
+    const icon = kehadiran === 'Hadir' ? '<i class="fas fa-check-circle" style="color: var(--gold); font-size: 0.7rem; margin-left: 5px;"></i>' : '';
+    
+    newDiv.innerHTML = `
+        <h4 class="sans-font" style="color: var(--gold-soft); font-size: 0.95rem; margin-bottom: 5px;">${nama} ${icon}</h4>
+        <p class="sans-font text-muted" style="font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">${ucapan}</p>
+        <p class="sans-font" style="font-size: 0.65rem; color: rgba(255,255,255,0.3);"><i class="far fa-clock"></i> Baru saja</p>
     `;
-
-    document.getElementById('comments-container').prepend(newComment);
-
-    const originalText = btn.innerText;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
     
-    setTimeout(() => {
-        this.reset();
-        btn.innerHTML = '<i class="fas fa-check"></i> Terkirim';
-        setTimeout(() => {
-            btn.innerText = 'Kirim Ucapan';
-        }, 2000);
-    }, 1000);
-});
-
-// Particles JS Init (Soft Floating Light / Bokeh effect)
-if(window.particlesJS) {
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 40, "density": { "enable": true, "value_area": 1000 } },
-            "color": { "value": ["#ffffff", "#FFD1DC", "#D4AF37"] },
-            "shape": { 
-                "type": "image",
-                "image": { "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiPjxwYXRoIGQ9Ik0xMiAyMS4zNWwtMS40NS0xLjMyQzUuNCAxNS4zNiAyIDEyLjI4IDIgOC41IDIgNS40MiA0LjQyIDMgNy41IDNjMS43NCAwIDMuNDEuODEgNC41IDIuMDlDMTMuMDkgMy44MSAxNC43NiAzIDE2LjUgMyAxOS41OCAzIDIyIDUuNDIgMjIgOC41YzAgMy43OC0zLjQgNi44Ni04LjU1IDExLjU0TDEyIDIxLjM1eiIvPjwvc3ZnPg==", "width": 100, "height": 100 }
-            },
-            "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } },
-            "size": { "value": 15, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 8, "sync": false } },
-            "line_linked": { "enable": false },
-            "move": { "enable": true, "speed": 0.8, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": false }, "resize": true },
-            "modes": { "bubble": { "distance": 250, "size": 8, "duration": 2, "opacity": 0.6, "speed": 3 } }
-        },
-        "retina_detect": true
+    container.prepend(newDiv);
+    
+    // Reset and Alert
+    document.getElementById('rsvp-form').reset();
+    
+    Swal.fire({
+        title: 'Terima Kasih!',
+        text: 'Doa dan konfirmasi kehadiran Anda telah terkirim.',
+        icon: 'success',
+        background: '#141414',
+        color: '#D4AF37',
+        confirmButtonColor: '#D4AF37',
+        confirmButtonText: 'Tutup'
     });
 }
