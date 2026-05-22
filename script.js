@@ -1,230 +1,154 @@
-// URL Parameter for Guest Name
+// ── Guest Name from URL ─────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
-    let guest = params.get("to");
-    
-    if (guest) {
-        // Decode and Title Case or UPPERCASE
-        guest = decodeURIComponent(guest).toUpperCase();
-    } else {
-        guest = "TAMU UNDANGAN";
-    }
-    
-    document.getElementById('guest-name-cover').innerText = guest;
+    const guest = params.get('to');
+    if (guest) document.getElementById('guest-name').innerText = guest;
+
+    AOS.init({ once: true, offset: 60, duration: 1200 });
+
+    // Swiper Gallery
+    new Swiper('.gallery-swiper', {
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: { delay: 3500, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        effect: 'coverflow',
+        coverflowEffect: { rotate: 20, stretch: 0, depth: 100, modifier: 1, slideShadows: false }
+    });
+
+    // Countdown
+    const target = new Date('2026-05-30T10:00:00');
+    setInterval(() => {
+        const now = new Date();
+        const diff = target - now;
+        if (diff <= 0) return;
+        const d = Math.floor(diff / 864e5);
+        const h = Math.floor((diff % 864e5) / 36e5);
+        const m = Math.floor((diff % 36e5) / 6e4);
+        const s = Math.floor((diff % 6e4) / 1e3);
+        document.getElementById('cd-hari').textContent   = String(d).padStart(2,'0');
+        document.getElementById('cd-jam').textContent    = String(h).padStart(2,'0');
+        document.getElementById('cd-menit').textContent  = String(m).padStart(2,'0');
+        document.getElementById('cd-detik').textContent  = String(s).padStart(2,'0');
+    }, 1000);
 });
 
-// Open Invitation Animation
-function openInvitation() {
-    const cover = document.getElementById('cover-screen');
-    const main = document.getElementById('main-content');
-    const music = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
+// ── Particles (gold dust) ───────────────────────
+particlesJS('particles-js', {
+    particles: {
+        number: { value: 55, density: { enable: true, value_area: 900 } },
+        color: { value: ['#F0DEC8', '#D4AF37', '#ffffff'] },
+        shape: { type: 'circle' },
+        opacity: { value: 0.4, random: true, anim: { enable: true, speed: 0.8, opacity_min: 0.05 } },
+        size: { value: 2.5, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 0.4, direction: 'top', random: true, out_mode: 'out' }
+    },
+    interactivity: { events: { onhover: { enable: false }, onclick: { enable: false } } },
+    retina_detect: true
+});
 
-    // Smooth transform up like a cinematic curtain
-    cover.style.transform = 'translateY(-100vh)';
-    
+// ── Open Invitation ─────────────────────────────
+const audio = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-btn');
+let playing = false;
+
+function openInvitation() {
+    const cover = document.getElementById('cover');
+    const main  = document.getElementById('main');
+
+    cover.style.opacity   = '0';
+    cover.style.transform = 'scale(1.04)';
     setTimeout(() => {
         cover.style.display = 'none';
-        main.style.display = 'block';
-        
-        // Initialize AOS after main content is visible
-        AOS.init({
-            duration: 1500,
-            once: true,
-            offset: 100,
-            easing: 'ease-out-cubic'
+        main.style.display  = 'block';
+        requestAnimationFrame(() => {
+            main.style.opacity = '1';
+            AOS.refresh();
         });
+    }, 1400);
 
-        // Initialize Swiper for Cinematic Gallery
-        new Swiper('.gallery-swiper', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            coverflowEffect: {
-                rotate: 15,
-                stretch: 0,
-                depth: 200,
-                modifier: 1,
-                slideShadows: true,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-            },
-            initialSlide: 1,
-            loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            }
-        });
-
-        document.body.classList.remove('overflow-hidden');
-    }, 1200);
-
-    // Play Audio (Fade In effect can be simulated or just play)
-    music.volume = 0;
-    music.play().catch(e => console.log("Auto-play prevented by browser"));
-    
-    // Audio Fade-in
-    let vol = 0;
-    const fadeAudio = setInterval(() => {
-        if (vol < 0.9) {
-            vol += 0.1;
-            music.volume = vol;
-        } else {
-            clearInterval(fadeAudio);
-            music.volume = 1;
-        }
-    }, 200);
-
-    musicBtn.classList.add('playing');
-}
-
-// Audio Control
-function toggleMusic() {
-    const music = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-
-    if (music.paused) {
-        music.play();
+    // auto-play music
+    audio.volume = 0;
+    audio.play().then(() => {
+        playing = true;
         musicBtn.classList.add('playing');
-    } else {
-        music.pause();
+        // fade in volume
+        let v = 0;
+        const fade = setInterval(() => {
+            v = Math.min(v + 0.04, 0.75);
+            audio.volume = v;
+            if (v >= 0.75) clearInterval(fade);
+        }, 200);
+    }).catch(() => {});
+}
+
+// ── Toggle Music ────────────────────────────────
+function toggleMusic() {
+    if (playing) {
+        audio.pause();
         musicBtn.classList.remove('playing');
-    }
-}
-
-// Countdown Timer
-function startCountdown() {
-    const weddingDate = new Date("May 30, 2026 09:30:00").getTime();
-    const timer = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = weddingDate - now;
-
-        if (distance < 0) {
-            clearInterval(timer);
-            return;
-        }
-        
-        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerText = d < 10 ? '0'+d : d;
-        document.getElementById("hours").innerText = h < 10 ? '0'+h : h;
-        document.getElementById("minutes").innerText = m < 10 ? '0'+m : m;
-        document.getElementById("seconds").innerText = s < 10 ? '0'+s : s;
-    }, 1000);
-}
-startCountdown();
-
-// Toggle Gift Container
-function toggleGift() {
-    const container = document.getElementById('gift-container');
-    const btn = document.getElementById('btn-gift');
-    
-    if (container.style.display === 'none') {
-        container.style.display = 'block';
-        setTimeout(() => container.style.opacity = '1', 50);
-        btn.innerHTML = '<i class="fas fa-gift mr-2"></i> Tutup';
     } else {
-        container.style.opacity = '0';
-        setTimeout(() => container.style.display = 'none', 500);
-        btn.innerHTML = '<i class="fas fa-gift mr-2"></i> Kirim Hadiah';
+        audio.play();
+        musicBtn.classList.add('playing');
     }
+    playing = !playing;
 }
 
-// Copy Rekening
-function copyRekening() {
-    const rek = document.getElementById('rek-bca').innerText;
-    navigator.clipboard.writeText(rek).then(() => {
-        alert('Nomor Rekening berhasil disalin: ' + rek);
-    }).catch(err => {
-        console.error('Gagal menyalin', err);
-    });
-}
-
-// Reply to Comment
-function replyTo(button) {
-    const replyText = prompt("Masukkan balasan Anda:");
-    if (replyText) {
-        const replyDiv = document.createElement('div');
-        replyDiv.style.marginTop = '15px';
-        replyDiv.style.padding = '12px';
-        replyDiv.style.background = 'rgba(212, 175, 55, 0.1)';
-        replyDiv.style.borderRadius = '8px';
-        replyDiv.style.borderLeft = '3px solid #D4AF37';
-        replyDiv.innerHTML = `
-            <p style="font-weight: 600; font-size: 0.85rem; color: #5A353D; margin-bottom: 5px;">Mempelai <i class="fas fa-heart" style="color: #D4AF37; font-size: 0.7rem;"></i></p>
-            <p style="font-size: 0.85rem; color: #8A5A64;">${replyText}</p>
-        `;
-        button.parentElement.parentElement.appendChild(replyDiv);
-    }
-}
-
-// RSVP Form Submit
-document.getElementById('wedding-form').addEventListener('submit', function (e) {
+// ── RSVP Submit ─────────────────────────────────
+function submitRSVP(e) {
     e.preventDefault();
-    const btn = this.querySelector('button');
-    const nama = document.getElementById('wish-nama').value;
-    const ucapan = document.getElementById('wish-ucapan').value;
-    const hadir = document.getElementById('wish-hadir').value;
+    const nama     = document.getElementById('nama').value.trim();
+    const kehadiran = document.getElementById('kehadiran').value;
+    const ucapan   = document.getElementById('ucapan').value.trim();
 
-    const newComment = document.createElement('div');
-    newComment.classList.add('mb-4');
-    newComment.style.padding = '20px';
-    newComment.style.background = 'rgba(255,255,255,0.7)';
-    newComment.style.borderRadius = '10px';
-    newComment.style.border = '1px solid rgba(212, 175, 55, 0.2)';
-    
-    newComment.innerHTML = `
-        <p style="font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; color: #5A353D;">
-            ${nama} <i class="fas fa-check-circle" style="color: ${hadir === 'Hadir' ? '#D4AF37' : '#8A5A64'}; font-size: 0.8rem; margin-left: 5px;"></i>
-        </p>
-        <p style="font-size: 0.9rem; color: #8A5A64; margin-bottom: 10px; line-height: 1.5;">${ucapan}</p>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <p style="font-size: 0.75rem; color: #9A5B66; font-family: 'Montserrat';"><i class="far fa-clock mr-1"></i> Baru saja</p>
-            <button onclick="replyTo(this)" style="background: none; border: none; color: #D4AF37; font-size: 0.75rem; cursor: pointer; font-weight: 600;">Balas</button>
-        </div>
+    const container = document.getElementById('wishes-container');
+    const card = document.createElement('div');
+    card.className = 'wish-card';
+    card.style.animation = 'wishAppear .6s ease forwards';
+    card.innerHTML = `
+        <div class="wish-name serif">${nama} <span style="font-size:.7rem;color:rgba(240,222,200,.5);">✦</span></div>
+        <div class="wish-text">${ucapan}</div>
+        <div class="wish-time">${kehadiran} · Baru saja</div>
     `;
+    container.prepend(card);
 
-    document.getElementById('comments-container').prepend(newComment);
+    document.getElementById('rsvp-form').reset();
 
-    const originalText = btn.innerText;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-    
-    setTimeout(() => {
-        this.reset();
-        btn.innerHTML = '<i class="fas fa-check"></i> Terkirim';
-        setTimeout(() => {
-            btn.innerText = 'Kirim Ucapan';
-        }, 2000);
-    }, 1000);
-});
-
-// Particles JS Init (Soft Floating Light / Bokeh effect)
-if(window.particlesJS) {
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 40, "density": { "enable": true, "value_area": 1000 } },
-            "color": { "value": ["#ffffff", "#FFD1DC", "#D4AF37"] },
-            "shape": { 
-                "type": "image",
-                "image": { "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiPjxwYXRoIGQ9Ik0xMiAyMS4zNWwtMS40NS0xLjMyQzUuNCAxNS4zNiAyIDEyLjI4IDIgOC41IDIgNS40MiA0LjQyIDMgNy41IDNjMS43NCAwIDMuNDEuODEgNC41IDIuMDlDMTMuMDkgMy44MSAxNC43NiAzIDE2LjUgMyAxOS41OCAzIDIyIDUuNDIgMjIgOC41YzAgMy43OC0zLjQgNi44Ni04LjU1IDExLjU0TDEyIDIxLjM1eiIvPjwvc3ZnPg==", "width": 100, "height": 100 }
-            },
-            "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } },
-            "size": { "value": 15, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 8, "sync": false } },
-            "line_linked": { "enable": false },
-            "move": { "enable": true, "speed": 0.8, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": false }, "resize": true },
-            "modes": { "bubble": { "distance": 250, "size": 8, "duration": 2, "opacity": 0.6, "speed": 3 } }
-        },
-        "retina_detect": true
-    });
+    // simple toast instead of external lib
+    showToast('Terima kasih! Ucapan Anda telah terkirim 🤍');
 }
+
+// ── Copy Rekening ────────────────────────────────
+function copyText(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => showToast('Nomor rekening berhasil disalin!'));
+}
+
+// ── Toast Notification ───────────────────────────
+function showToast(msg) {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.style.cssText = `
+            position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
+            background:rgba(20,8,8,.85); color:#F0DEC8;
+            border:1px solid rgba(240,222,200,.3); border-radius:30px;
+            padding:12px 28px; font-family:'Jost',sans-serif; font-size:.78rem;
+            letter-spacing:1px; z-index:99999; backdrop-filter:blur(10px);
+            opacity:0; transition:opacity .4s ease; white-space:nowrap;
+        `;
+        document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+}
+
+// ── Wish appear animation ───────────────────────
+const style = document.createElement('style');
+style.textContent = `@keyframes wishAppear { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }`;
+document.head.appendChild(style);

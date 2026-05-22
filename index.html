@@ -1,389 +1,311 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of Christian & Anggita - Luxury Edition</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Script Romantic (Great Vibes) + Serif Modern (Playfair) + Sans (Montserrat) -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-        rel="stylesheet">
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
+    <title>The Wedding of Christian & Anggita · 30.05.2026</title>
+    <meta name="description" content="Undangan Pernikahan Premium · Christian P. Diamanis & Anggita C. Kanine, SE · 30 Mei 2026">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<body>
 
-<body class="overflow-hidden">
-
-    <!-- Particles Container (Floating soft light) -->
+    <!-- Particles -->
     <div id="particles-js"></div>
 
-    <!-- Cover Page / Opening Screen -->
-    <div id="cover-screen" class="curtain-container">
-        <div class="cover-bg"></div>
-        <div class="cover-overlay"></div>
-        
-        <div class="cover-photo-arch">
-            <img src="assets/prewed4baru.jpeg" alt="Cover Photo">
+    <!-- ── COVER / OPENING SCREEN ────────────────────── -->
+    <div id="cover">
+        <div class="cover-arch">
+            <img src="assets/prewed4baru.jpeg" alt="Christian & Anggita">
         </div>
 
-        <div class="cover-content" style="position: relative; z-index: 10; padding-top: 150px;">
-            <h1 class="script-font gold-text"
-                style="font-size: clamp(4rem, 12vw, 7rem); margin-bottom: 20px; animation: fadeInUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;">
-                Christian & Anggita</h1>
-            <p class="sans-font"
-                style="color: var(--champagne); letter-spacing: 5px; font-size: 0.85rem; margin-bottom: 40px; animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; text-transform: uppercase;">
-                Special Invitation To</p>
+        <p class="cover-label">The Wedding of</p>
+        <h1 class="cover-name gold-text serif">Christian<br><em style="font-size:.5em; -webkit-text-fill-color: rgba(253,248,245,.45); font-family:'Cormorant Garamond',serif;">&amp;</em><br>Anggita</h1>
+        <p class="cover-meta">30 · 05 · 2026</p>
 
-            <div class="guest-name-box"
-                style="animation: fadeInUp 1.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 10px;">
-                <h2 id="guest-name-cover" class="serif-font"
-                    style="font-size: clamp(1.4rem, 5vw, 2rem); color: var(--white); font-weight: 500; letter-spacing: 2px;">
-                    TAMU UNDANGAN
-                </h2>
-            </div>
-            <br>
-            <button class="gold-btn mt-4" onclick="openInvitation()"
-                style="animation: fadeInUp 1.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; padding: 15px 40px;">
-                <i class="far fa-envelope-open" style="margin-right: 10px;"></i> Open Invitation
-            </button>
+        <div class="guest-box">
+            <p>Kepada Yth.</p>
+            <div id="guest-name">TAMU KEHORMATAN</div>
         </div>
+
+        <button class="btn-open" onclick="openInvitation()">
+            <i class="far fa-envelope-open" style="margin-right:10px;"></i>Buka Undangan
+        </button>
     </div>
 
-    <!-- Music Button -->
-    <div class="music-btn" id="music-btn" onclick="toggleMusic()">
-        <i class="fas fa-music"></i>
-    </div>
+    <!-- Music -->
+    <div id="music-btn" onclick="toggleMusic()"><i class="fas fa-compact-disc"></i></div>
     <audio id="bg-music" loop>
         <source src="assets/Westlife -  Beautiful in white (Lyrics).mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Main Content -->
-    <main id="main-content" style="display: none;">
+    <!-- ── MAIN SCROLL CONTENT ────────────────────────── -->
+    <main id="main">
 
-        <!-- Hero Section -->
-        <section id="hero" class="fullscreen-section">
-            <div class="hero-bg parallax-bg"></div>
-            <div class="hero-overlay"></div>
-            <div class="hero-content text-center z-10" data-aos="zoom-out" data-aos-duration="2000">
-                <p class="sans-font text-sm mb-4"
-                    style="color: var(--dark-brown); letter-spacing: 6px; font-weight: 500; text-transform: uppercase;">
-                    Welcome To Our Big Day</p>
-                <h1 class="script-font gold-text"
-                    style="font-size: clamp(5rem, 14vw, 9rem); line-height: 0.9; margin: 20px 0;">Christian<br><span
-                        class="serif-font"
-                        style="font-size: 0.4em; color: var(--brown); font-style: italic;">&</span><br>Anggita</h1>
-                <p class="sans-font mt-6 text-sm" style="color: var(--brown); letter-spacing: 6px; font-weight: 500;">30
-                    . 05 . 2026</p>
-            </div>
-            <div class="scroll-indicator">
-                <span>Scroll Down</span>
-                <div class="line"></div>
+        <!-- 1 · HERO DATE BAR -->
+        <section class="section" style="padding: 80px 24px 40px; text-align:center;">
+            <div class="glass-wrap" style="padding: 40px 32px;" data-aos="fade-up">
+                <p class="section-label">Welcome to Our Big Day</p>
+                <h1 class="serif gold-text" style="font-size:clamp(3rem,9vw,5rem); font-weight:300; line-height:1.05;">
+                    Christian &amp; Anggita
+                </h1>
+                <div class="divider"></div>
+
+                <!-- Countdown -->
+                <div class="countdown-row" id="countdown">
+                    <div class="cd-box"><div class="cd-num gold-text serif" id="cd-hari">00</div><div class="cd-lbl">Hari</div></div>
+                    <div class="cd-box" style="color:rgba(240,222,200,.3); padding-top:6px; font-size:1.5rem;">·</div>
+                    <div class="cd-box"><div class="cd-num gold-text serif" id="cd-jam">00</div><div class="cd-lbl">Jam</div></div>
+                    <div class="cd-box" style="color:rgba(240,222,200,.3); padding-top:6px; font-size:1.5rem;">·</div>
+                    <div class="cd-box"><div class="cd-num gold-text serif" id="cd-menit">00</div><div class="cd-lbl">Menit</div></div>
+                    <div class="cd-box" style="color:rgba(240,222,200,.3); padding-top:6px; font-size:1.5rem;">·</div>
+                    <div class="cd-box"><div class="cd-num gold-text serif" id="cd-detik">00</div><div class="cd-lbl">Detik</div></div>
+                </div>
             </div>
         </section>
 
-        <!-- Couple Profile -->
-        <section id="couple" class="py-20 section-light relative">
+        <!-- 2 · BIBLE VERSE -->
+        <section class="section" style="padding:40px 24px; text-align:center;">
+            <div class="glass-wrap" style="max-width:700px; padding:40px 32px;" data-aos="fade-up">
+                <i class="fas fa-quote-left" style="color:rgba(240,222,200,.3); font-size:1.5rem; margin-bottom:20px; display:block;"></i>
+                <p class="serif italic" style="font-size:clamp(1rem,3vw,1.2rem); font-weight:300; line-height:1.9; color:rgba(253,248,245,.85);">
+                    "Demikianlah mereka bukan lagi dua, melainkan satu.<br>
+                    Karena itu, apa yang telah dipersatukan Allah,<br>
+                    tidak boleh diceraikan manusia."
+                </p>
+                <p class="upper sans" style="font-size:.62rem; color:rgba(240,222,200,.6); margin-top:20px; letter-spacing:4px;">Matius 19 : 6</p>
+            </div>
+        </section>
 
-
-            <div class="container text-center relative z-10" data-aos="fade-up" data-aos-duration="1500">
-                <p class="sans-font mb-4"
-                    style="color: var(--brown); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem;">
-                    Groom & Bride</p>
-                <h2 class="script-font gold-text section-title" style="margin-bottom: 10px;">The Happy Couple</h2>
-                <p class="serif-font mb-16"
-                    style="color: var(--dark-brown); font-style: italic; font-size: 1.1rem; max-width: 600px; margin: 0 auto 60px;">
-                    "Dua jiwa namun satu pikiran, dua hati namun satu perasaan."</p>
+        <!-- 3 · COUPLE PROFILE -->
+        <section class="section" style="padding:60px 24px;" data-aos="fade-up">
+            <div class="glass-wrap">
+                <div class="text-center" style="margin-bottom:40px;">
+                    <p class="section-label">The Couple</p>
+                    <h2 class="serif gold-text section-title">Mempelai</h2>
+                    <div class="divider"></div>
+                </div>
 
                 <div class="couple-grid">
                     <!-- Groom -->
-                    <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="100" style="padding: 30px;">
-                        <div class="img-frame gold-border mb-6" style="margin-bottom: 25px;">
-                            <img src="assets/k tian pink.jpeg" alt="Groom">
+                    <div class="couple-card">
+                        <div class="arch-frame">
+                            <img src="assets/k tian pink.jpeg" alt="Christian">
                         </div>
-                        <h3 class="serif-font text-2xl mb-2"
-                            style="font-size: 1.6rem; color: var(--dark-brown); font-weight: 600;">Christian P. Diamanis
-                        </h3>
-                        <p class="sans-font text-sm mb-4"
-                            style="color: var(--brown); line-height: 1.6; margin-bottom: 20px;">Putra Ke 4 dari<br><span
-                                style="font-weight: 500;">Bpk. Jothan Diamanis (Alm)<br>& Ibu Dinah Getruida
-                                Pedah</span></p>
+                        <h3 class="couple-name gold-text serif">Christian P. Diamanis</h3>
+                        <p class="couple-parent">Putra Ke-4 dari<br><span style="color:rgba(253,248,245,.85);">Bpk. Jothan Diamanis (Alm)<br>&amp; Ibu Dinah Getruida Pedah</span></p>
                     </div>
 
-                    <div class="and-symbol script-font gold-text" data-aos="zoom-in" data-aos-duration="1000">&</div>
+                    <div class="and-mark">&amp;</div>
 
                     <!-- Bride -->
-                    <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="200" style="padding: 30px;">
-                        <div class="img-frame gold-border mb-6" style="margin-bottom: 25px;">
-                            <img src="assets/ita pink.jpeg" alt="Bride">
+                    <div class="couple-card">
+                        <div class="arch-frame">
+                            <img src="assets/ita pink.jpeg" alt="Anggita">
                         </div>
-                        <h3 class="serif-font text-2xl mb-2"
-                            style="font-size: 1.6rem; color: var(--dark-brown); font-weight: 600;">Anggita C. Kanine, SE
-                        </h3>
-                        <p class="sans-font text-sm mb-4"
-                            style="color: var(--brown); line-height: 1.6; margin-bottom: 20px;">Putri dari<br><span
-                                style="font-weight: 500;">Bpk. Jene Toi Kanine<br>& Ibu Yohilda Sanggel</span></p>
+                        <h3 class="couple-name gold-text serif">Anggita C. Kanine, SE</h3>
+                        <p class="couple-parent">Putri dari<br><span style="color:rgba(253,248,245,.85);">Bpk. Jene Toi Kanine<br>&amp; Ibu Yohilda Sanggel</span></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Ayat Alkitab (Ganti Love Story) -->
-        <section id="bible-verse" class="py-20 section-alt relative">
-            <div class="container text-center" data-aos="fade-up" data-aos-duration="1500">
-                <i class="fas fa-quote-left gold-text mb-6" style="font-size: 2rem; opacity: 0.5;"></i>
-                <p class="serif-font"
-                    style="color: var(--dark-brown); font-size: 1.3rem; line-height: 1.8; max-width: 700px; margin: 0 auto;">
-                    "Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah,
-                    tidak boleh diceraikan manusia."
-                </p>
-                <p class="sans-font mt-6 gold-text" style="font-weight: 600; letter-spacing: 2px;">MATIUS 19:6</p>
-            </div>
-        </section>
-
-
-        <!-- Wedding Events & Countdown -->
-        <section id="events" class="py-20 parallax-section relative">
-            <div class="parallax-bg"
-                style="background-image: url('assets/prewedpink.png'); filter: brightness(0.7) saturate(1.1);">
-            </div>
-            <div class="light-overlay" style="background: rgba(250,246,247,0.85);"></div>
-            <div class="container relative z-10 text-center">
-
-                <!-- Countdown -->
-                <div class="mb-20" data-aos="fade-up" data-aos-duration="1500" style="margin-bottom: 80px;">
-                    <p class="sans-font mb-4"
-                        style="color: var(--brown); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem;">
-                        Time To Celebrate</p>
-                    <h2 class="serif-font gold-text text-3xl mb-8"
-                        style="letter-spacing: 5px; margin-bottom: 40px; font-weight: 500;">COUNTDOWN</h2>
-                    <div class="countdown-flex">
-                        <div class="cd-box glass-card"><span id="days">00</span>
-                            <p>Hari</p>
-                        </div>
-                        <div class="cd-box glass-card"><span id="hours">00</span>
-                            <p>Jam</p>
-                        </div>
-                        <div class="cd-box glass-card"><span id="minutes">00</span>
-                            <p>Menit</p>
-                        </div>
-                        <div class="cd-box glass-card"><span id="seconds">00</span>
-                            <p>Detik</p>
-                        </div>
-                    </div>
+        <!-- 4 · EVENT SCHEDULE -->
+        <section class="section" style="padding:60px 24px;" data-aos="fade-up">
+            <div class="glass-wrap">
+                <div class="text-center" style="margin-bottom:40px;">
+                    <p class="section-label">The Wedding Day</p>
+                    <h2 class="serif gold-text section-title">Jadwal Acara</h2>
+                    <p class="sans" style="font-size:.78rem; color:rgba(253,248,245,.6);">Sabtu, 30 Mei 2026</p>
+                    <div class="divider"></div>
                 </div>
 
-                <!-- Event Card (Single Capsule) -->
-                <div class="glass-card event-capsule mx-auto" data-aos="fade-up" data-aos-duration="1500"
-                    style="max-width: 500px; padding: 70px 40px; display: flex; flex-direction: column; gap: 40px;">
-
-                    <!-- Pemberkatan -->
-                    <div>
-                        <h2 class="script-font gold-text text-4xl mb-4" style="font-size: clamp(2.5rem, 8vw, 3.5rem);">
-                            Pemberkatan</h2>
-                        <div class="my-4">
-                            <p class="sans-font text-lg"
-                                style="color: var(--dark-brown); font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">
-                                Sabtu</p>
-                            <p class="serif-font text-5xl gold-text my-2"
-                                style="font-size: clamp(3rem, 10vw, 4.5rem); line-height: 1;">30</p>
-                            <p class="sans-font text-lg"
-                                style="color: var(--dark-brown); font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">
-                                Mei 2026</p>
+                <div class="event-grid">
+                    <div class="event-card">
+                        <div class="event-icon"><i class="fas fa-church"></i></div>
+                        <h3 class="event-name serif">Pemberkatan Nikah</h3>
+                        <div class="event-time">
+                            Sabtu, 30 Mei 2026<br>
+                            <strong>10.00 WITA — Selesai</strong>
                         </div>
-                        <p class="sans-font text-sm mb-4"
-                            style="color: var(--brown); font-weight: 600; letter-spacing: 1px;">09.30 WIB</p>
-                        <p
-                            style="font-weight: 600; margin-bottom: 15px; color: var(--dark-brown); font-family: 'Playfair Display'; font-size: 1.2rem;">
-                            Gereja GMIST Maranatha Beong</p>
+                        <div class="event-place">
+                            <strong>Gereja Tiberias Indonesia</strong><br>
+                            Jl. Sam Ratulangi, Manado
+                        </div>
+                        <a href="https://maps.google.com" target="_blank" class="event-map-btn">
+                            <i class="fas fa-map-marker-alt"></i>&nbsp; Lihat Lokasi
+                        </a>
                     </div>
 
-                    <hr
-                        style="border: none; border-top: 1px dashed rgba(138, 90, 100, 0.4); width: 60%; margin: 0 auto;">
-
-                    <!-- Resepsi -->
-                    <div>
-                        <h2 class="script-font gold-text text-4xl mb-4" style="font-size: clamp(2.5rem, 8vw, 3.5rem);">
-                            Resepsi</h2>
-                        <div class="my-4">
-                            <p class="sans-font text-lg"
-                                style="color: var(--dark-brown); font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">
-                                Sabtu</p>
-                            <p class="serif-font text-5xl gold-text my-2"
-                                style="font-size: clamp(3rem, 10vw, 4.5rem); line-height: 1;">30</p>
-                            <p class="sans-font text-lg"
-                                style="color: var(--dark-brown); font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">
-                                Mei 2026</p>
+                    <div class="event-card">
+                        <div class="event-icon"><i class="fas fa-glass-cheers"></i></div>
+                        <h3 class="event-name serif">Resepsi Pernikahan</h3>
+                        <div class="event-time">
+                            Sabtu, 30 Mei 2026<br>
+                            <strong>19.00 WITA — Selesai</strong>
                         </div>
-                        <p class="sans-font text-sm mb-4"
-                            style="color: var(--brown); font-weight: 600; letter-spacing: 1px;">14.00 WIB</p>
-                        <p
-                            style="font-weight: 600; margin-bottom: 15px; color: var(--dark-brown); font-family: 'Playfair Display'; font-size: 1.2rem;">
-                            Kel. Kanine Sanggel</p>
+                        <div class="event-place">
+                            <strong>Grand Kawanua Convention</strong><br>
+                            Jl. A.A. Maramis, Manado
+                        </div>
+                        <a href="https://maps.google.com" target="_blank" class="event-map-btn">
+                            <i class="fas fa-map-marker-alt"></i>&nbsp; Lihat Lokasi
+                        </a>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- Gallery Cinematic -->
-        <section id="gallery" class="py-20 section-light" style="overflow: hidden;">
-            <div class="container text-center" data-aos="fade-up" data-aos-duration="1500">
-                <h2 class="script-font gold-text section-title">Our Gallery</h2>
-                <div class="swiper gallery-swiper mt-10" style="margin-top: 50px;">
+        <!-- 5 · GALLERY -->
+        <section class="section" style="padding:60px 24px;" data-aos="fade-up">
+            <div style="max-width:860px; margin:0 auto; text-align:center;">
+                <p class="section-label">Pre-Wedding Gallery</p>
+                <h2 class="serif gold-text section-title">Our Story</h2>
+                <div class="divider"></div>
+
+                <div class="swiper gallery-swiper" style="margin-top:32px;">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide"><img src="assets/prewed4baru.jpeg" alt="Gallery"></div>
                         <div class="swiper-slide"><img src="assets/prewedpink.png" alt="Gallery"></div>
-                        <div class="swiper-slide"><img src="assets/prewed7.jpeg" alt="Gallery"></div>
                         <div class="swiper-slide"><img src="assets/baruputih.png" alt="Gallery"></div>
+                        <div class="swiper-slide"><img src="assets/prewed7.jpeg" alt="Gallery"></div>
                         <div class="swiper-slide"><img src="assets/talaud.jpeg" alt="Gallery"></div>
                     </div>
-                    <div class="swiper-pagination" style="margin-top: 30px; position: relative;"></div>
+                    <div class="swiper-pagination" style="margin-top:20px; position:relative;"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Wedding Gift & RSVP -->
-        <section id="rsvp" class="py-20 section-alt">
-            <div class="container">
-                <div class="rsvp-grid">
-                    <!-- Gift -->
-                    <div class="glass-card p-8 text-center" data-aos="fade-up" data-aos-duration="1500"
-                        style="padding: 40px;">
-                        <i class="fas fa-gift gold-text mb-4" style="font-size: 2rem; margin-bottom: 15px;"></i>
-                        <h2 class="script-font gold-text text-4xl mb-4"
-                            style="font-size: clamp(2.2rem, 8vw, 3rem); margin-bottom: 20px;">Wedding Gift</h2>
-                        <p class="sans-font text-sm mb-6"
-                            style="color: var(--brown); line-height: 1.6; margin-bottom: 30px;">Doa restu Anda merupakan
-                            karunia terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui:</p>
+        <!-- 6 · TURUT MENGUNDANG -->
+        <section class="section" style="padding:60px 24px;" data-aos="fade-up">
+            <div class="glass-wrap" style="max-width:640px;">
+                <div class="text-center" style="margin-bottom:30px;">
+                    <p class="section-label">Keluarga Besar</p>
+                    <h2 class="serif gold-text section-title">Turut Mengundang</h2>
+                    <div class="divider"></div>
+                </div>
 
-                        <button class="gold-btn w-full mb-4" onclick="toggleGift()" id="btn-gift" style="width: 100%;">
-                            <i class="fas fa-gift mr-2"></i> Klik Disini
-                        </button>
-
-                        <div id="gift-container"
-                            style="display: none; transition: 0.5s opacity; opacity: 0; margin-top: 20px;">
-                            <div class="gift-box gold-border p-4"
-                                style="padding: 25px 20px; border-radius: 15px; background: rgba(255,255,255,0.5);">
-                                <p style="font-weight: 600; margin-bottom: 10px; color: var(--dark-brown);">BCA</p>
-                                <p class="serif-font gold-text"
-                                    style="font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 10px; font-weight: 500;"
-                                    id="rek-bca">0263947875</p>
-                                <p style="font-size: 0.9rem; color: var(--brown);">a.n Anggita Christy Kanine</p>
-                                <button class="gold-btn mt-4"
-                                    style="margin-top: 25px; padding: 10px 25px; font-size: 0.75rem;"
-                                    onclick="copyRekening()">
-                                    <i class="far fa-copy mr-2"></i> Salin Rekening
-                                </button>
-                            </div>
-                        </div>
+                <div class="turut-grid">
+                    <div class="turut-col">
+                        <ol>
+                            <li>Kel. Onibala Pedah</li>
+                            <li>Kel. Pedah Wongkar</li>
+                            <li>Kel. Pedah Patoh</li>
+                            <li>Ibu Seni Makawekes</li>
+                            <li>Kel. Tatipang Andalangi</li>
+                        </ol>
                     </div>
-
-                    <!-- RSVP / Wishes -->
-                    <div class="glass-card p-8" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200"
-                        style="padding: 40px;">
-                        <h2 class="script-font gold-text text-4xl mb-6 text-center"
-                            style="font-size: clamp(2.2rem, 8vw, 3rem); margin-bottom: 30px;">Wedding Wish</h2>
-                        <form id="wedding-form">
-                            <input type="text" id="wish-nama" class="light-input mb-4" placeholder="Nama Anda" required>
-                            <textarea id="wish-ucapan" class="light-input mb-4" placeholder="Doa & Ucapan" rows="3"
-                                required style="resize: vertical;"></textarea>
-                            <select id="wish-hadir" class="light-input mb-6" style="margin-bottom: 25px;" required>
-                                <option value="" disabled selected hidden>Konfirmasi Kehadiran</option>
-                                <option value="Hadir">Hadir</option>
-                                <option value="Tidak Hadir">Tidak Hadir</option>
-                            </select>
-                            <button type="submit" class="gold-btn w-full"
-                                style="width: 100%; padding: 15px; font-size: 0.9rem;">Kirim Ucapan</button>
-                        </form>
-
-                        <div class="comments-area mt-8" id="comments-container"
-                            style="margin-top: 40px; max-height: 300px; overflow-y: auto; padding-right: 10px;">
-                            <!-- Comments will appear here -->
-                        </div>
+                    <div class="turut-col">
+                        <ol>
+                            <li>Kel. Tatambihe Sumaere</li>
+                            <li>Kel. Mananggel Mandak</li>
+                            <li>Kel. Jacob Pusung</li>
+                            <li>Kel. Onseng Abram</li>
+                            <li>Kel. Adil Tatulus</li>
+                        </ol>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Turut Mengundang -->
-        <section id="turut-mengundang" class="py-20 section-light text-center">
-            <div class="container" data-aos="fade-up" data-aos-duration="1500">
-                <h2 class="script-font gold-text section-title" style="margin-bottom: 30px;">Turut Mengundang</h2>
-
-                <div class="glass-card mx-auto" style="max-width: 600px; padding: clamp(20px, 5vw, 40px);">
-                    <div class="serif-font"
-                        style="color: var(--dark-brown); font-size: clamp(0.85rem, 3vw, 1rem); font-weight: 500;">
-                        <div
-                            style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 3vw, 30px); margin-bottom: 20px; text-align: left;">
-                            <div>
-                                <ol
-                                    style="list-style-type: decimal; padding-left: 15px; font-size: clamp(0.6rem, 2.5vw, 0.85rem); line-height: 1.8; color: var(--dark-brown);">
-                                    <li>Kel. Onibala Pedah</li>
-                                    <li>Kel. Pedah Wongkar</li>
-                                    <li>Kel. Pedah Patoh</li>
-                                    <li>Ibu Seni Makawekes</li>
-                                    <li>Kel. Tatipang Andalangi</li>
-                                </ol>
-                            </div>
-                            <div>
-                                <ol
-                                    style="list-style-type: decimal; padding-left: 15px; font-size: clamp(0.6rem, 2.5vw, 0.85rem); line-height: 1.8; color: var(--dark-brown);">
-                                    <li>Kel. Tatambihe Sumaere</li>
-                                    <li>Kel. Mananggel Mandak</li>
-                                    <li>Kel. Jacob Pusung</li>
-                                    <li>Kel. Onseng Abram</li>
-                                    <li>Kel. Adil Tatulus</li>
-                                </ol>
-                            </div>
-                        </div>
-                        <p style="font-size: clamp(0.7rem, 2.5vw, 0.85rem); margin-top: 20px;">Serta segenap keluarga
-                            besar lainnya</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="py-20 text-center relative parallax-section" style="padding-top: 120px; padding-bottom: 100px;">
-            <div class="parallax-bg" style="background-image: url('assets/pink.jpeg'); filter: brightness(0.9);"></div>
-            <div class="light-overlay" style="background: rgba(255,245,247,0.92);"></div>
-            <div class="relative z-10 container" data-aos="fade-up" data-aos-duration="2000">
-                <p class="sans-font mb-4"
-                    style="letter-spacing: 4px; color: var(--brown); margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem;">
-                    Merupakan Suatu Kehormatan</p>
-                <p class="serif-font mx-auto mb-10"
-                    style="color: var(--dark-brown); margin-bottom: 60px; font-style: italic; font-size: 1.1rem; max-width: 600px; line-height: 1.6;">
-                    Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a restu kepada kami.</p>
-                <p class="sans-font mb-2 gold-text"
-                    style="margin-bottom: 15px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem;">
-                    Kami yang berbahagia</p>
-                <h2 class="script-font gold-text"
-                    style="font-size: clamp(3.5rem, 10vw, 6rem); margin-bottom: 20px; line-height: 1.2;">Christian &
-                    Anggita</h2>
-                <p class="sans-font mt-8"
-                    style="letter-spacing: 4px; color: var(--brown); font-weight: 500; font-size: 0.75rem;">#CHRISGITA
+                <p class="sans text-center" style="font-size:.72rem; color:rgba(253,248,245,.45); margin-top:24px; letter-spacing:1px;">
+                    Serta segenap keluarga besar lainnya
                 </p>
-                <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.3);">
-                    <p class="sans-font" style="font-size: 0.75rem; color: var(--brown); opacity: 0.9; letter-spacing: 1px;">
-                        Created with <i class="fas fa-heart" style="color: var(--gold); margin: 0 3px;"></i> by <strong style="color: var(--dark-brown); font-weight: 600;">Pratiwi Sikendo</strong>
+            </div>
+        </section>
+
+        <!-- 7 · RSVP & WISHES -->
+        <section class="section" style="padding:60px 24px;" data-aos="fade-up">
+            <div class="glass-wrap">
+                <div class="text-center" style="margin-bottom:40px;">
+                    <p class="section-label">Konfirmasi &amp; Ucapan</p>
+                    <h2 class="serif gold-text section-title">RSVP</h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;">
+                    <!-- Form -->
+                    <div>
+                        <form id="rsvp-form" onsubmit="submitRSVP(event)">
+                            <input type="text" id="nama" class="input-field" placeholder="Nama Lengkap" required>
+                            <input type="number" id="jumlah" class="input-field" placeholder="Jumlah Tamu (Pax)" min="1" max="5" required>
+                            <select id="kehadiran" class="input-field" required>
+                                <option value="" disabled selected>Konfirmasi Kehadiran</option>
+                                <option value="Hadir">Hadir dengan Sukacita</option>
+                                <option value="Tidak Hadir">Mohon Maaf, Tidak Bisa Hadir</option>
+                            </select>
+                            <textarea id="ucapan" class="input-field" rows="4" placeholder="Tulis ucapan &amp; doa restu…" required></textarea>
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane" style="margin-right:8px;"></i>Kirim Ucapan
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Wishes Wall -->
+                    <div>
+                        <p class="sans" style="font-size:.65rem; letter-spacing:3px; text-transform:uppercase; color:rgba(240,222,200,.6); margin-bottom:16px;">Doa &amp; Ucapan</p>
+                        <div class="wishes-scroll" id="wishes-container">
+                            <div class="wish-card">
+                                <div class="wish-name serif">Keluarga Besar ✦</div>
+                                <div class="wish-text">Selamat menempuh hidup baru. Semoga rumah tangga kalian selalu diberkati Tuhan dan penuh kebahagiaan.</div>
+                                <div class="wish-time">Hadir · Baru saja</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8 · AMPLOP DIGITAL -->
+        <section class="section" style="padding:60px 24px;" data-aos="fade-up">
+            <div class="glass-wrap" style="max-width:560px; text-align:center;">
+                <p class="section-label">Wedding Gift</p>
+                <h2 class="serif gold-text section-title">Amplop Digital</h2>
+                <div class="divider"></div>
+                <p class="sans" style="font-size:.8rem; line-height:1.9; color:rgba(253,248,245,.65); margin-bottom:28px;">
+                    Doa restu Anda adalah hadiah terbesar bagi kami.<br>
+                    Namun bila Anda ingin memberikan tanda kasih:
+                </p>
+
+                <div class="rekening-box">
+                    <div>
+                        <p class="sans" style="font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:rgba(253,248,245,.45); margin-bottom:4px;">BCA · a.n Christian Diamanis</p>
+                        <div class="rek-num serif gold-text" id="rek1">1234567890</div>
+                    </div>
+                    <button class="btn-copy" onclick="copyText('rek1')">Salin</button>
+                </div>
+
+                <div class="rekening-box">
+                    <div>
+                        <p class="sans" style="font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:rgba(253,248,245,.45); margin-bottom:4px;">DANA · a.n Anggita Kanine</p>
+                        <div class="rek-num serif gold-text" id="rek2">0987654321</div>
+                    </div>
+                    <button class="btn-copy" onclick="copyText('rek2')">Salin</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9 · CLOSING -->
+        <section class="closing-section">
+            <div class="glass-wrap" data-aos="fade-up">
+                <i class="fas fa-heart" style="color:rgba(180,130,130,.5); font-size:1.4rem; margin-bottom:24px; display:block;"></i>
+                <p class="serif italic" style="font-size:clamp(1rem,3vw,1.15rem); font-weight:300; color:rgba(253,248,245,.75); line-height:1.9; margin-bottom:28px;">
+                    "Merupakan suatu kehormatan dan kebahagiaan apabila<br>
+                    Bapak / Ibu / Saudara / i berkenan hadir dan memberikan<br>
+                    do'a restu kepada kami."
+                </p>
+
+                <p class="sans upper" style="font-size:.6rem; color:rgba(253,248,245,.4); margin-bottom:12px;">Kami yang berbahagia</p>
+                <h2 class="serif gold-text" style="font-size:clamp(2.5rem,7vw,4rem); font-weight:300; line-height:1.1;">Christian &amp; Anggita</h2>
+                <p class="upper sans" style="font-size:.55rem; color:rgba(253,248,245,.3); margin-top:12px; letter-spacing:4px;">#CHRISGITA · 30.05.2026</p>
+
+                <div style="margin-top:48px; padding-top:24px; border-top:1px solid rgba(255,255,255,.08);">
+                    <p class="sans" style="font-size:.62rem; color:rgba(253,248,245,.3); letter-spacing:2px;">
+                        Created with <i class="fas fa-heart" style="color:rgba(180,130,130,.6);"></i> by <strong style="color:rgba(253,248,245,.5);">Pratiwi Sikendo</strong>
                     </p>
                 </div>
             </div>
-        </footer>
+        </section>
 
     </main>
 
@@ -393,5 +315,4 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
-
 </html>
