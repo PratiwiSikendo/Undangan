@@ -24,17 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date();
         const diff = target - now;
         if (diff <= 0) {
-            ['cd-hari', 'cd-jam', 'cd-menit', 'cd-detik'].forEach(id => document.getElementById(id).textContent = '00');
+            ['cd-hari','cd-jam','cd-menit','cd-detik'].forEach(id => document.getElementById(id).textContent = '00');
             return;
         }
         const d = Math.floor(diff / 864e5);
         const h = Math.floor((diff % 864e5) / 36e5);
         const m = Math.floor((diff % 36e5) / 6e4);
         const s = Math.floor((diff % 6e4) / 1e3);
-        document.getElementById('cd-hari').textContent = String(d).padStart(2, '0');
-        document.getElementById('cd-jam').textContent = String(h).padStart(2, '0');
-        document.getElementById('cd-menit').textContent = String(m).padStart(2, '0');
-        document.getElementById('cd-detik').textContent = String(s).padStart(2, '0');
+        document.getElementById('cd-hari').textContent   = String(d).padStart(2,'0');
+        document.getElementById('cd-jam').textContent    = String(h).padStart(2,'0');
+        document.getElementById('cd-menit').textContent  = String(m).padStart(2,'0');
+        document.getElementById('cd-detik').textContent  = String(s).padStart(2,'0');
     }, 1000);
 });
 
@@ -60,13 +60,13 @@ let playing = false;
 
 function openInvitation() {
     const cover = document.getElementById('cover');
-    const main = document.getElementById('main');
+    const main  = document.getElementById('main');
 
-    cover.style.opacity = '0';
+    cover.style.opacity   = '0';
     cover.style.transform = 'scale(1.04)';
     setTimeout(() => {
         cover.style.display = 'none';
-        main.style.display = 'block';
+        main.style.display  = 'block';
         requestAnimationFrame(() => {
             main.style.opacity = '1';
             AOS.refresh();
@@ -83,7 +83,7 @@ function openInvitation() {
             audio.volume = v;
             if (v >= 0.72) clearInterval(fade);
         }, 200);
-    }).catch(() => { });
+    }).catch(() => {});
 }
 
 // ── Toggle Music ────────────────────────────────
@@ -101,9 +101,9 @@ function toggleMusic() {
 // ── RSVP Submit ─────────────────────────────────
 function submitRSVP(e) {
     e.preventDefault();
-    const nama = document.getElementById('nama').value.trim();
+    const nama      = document.getElementById('nama').value.trim();
     const kehadiran = document.getElementById('kehadiran').value;
-    const ucapan = document.getElementById('ucapan').value.trim();
+    const ucapan    = document.getElementById('ucapan').value.trim();
 
     const container = document.getElementById('wishes-container');
     const card = document.createElement('div');
@@ -193,3 +193,40 @@ function showToast(msg) {
 const style = document.createElement('style');
 style.textContent = `@keyframes wishAppear { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }`;
 document.head.appendChild(style);
+
+// ── Lightbox for Collage ─────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    // Create lightbox element once
+    const lb = document.createElement('div');
+    lb.className = 'lightbox-overlay';
+    lb.innerHTML = '<button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lb-img" src="" alt="">';
+    document.body.appendChild(lb);
+
+    lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLightbox();
+    });
+
+    // Keyboard close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+});
+
+function openLightbox(src) {
+    const lb = document.querySelector('.lightbox-overlay');
+    document.getElementById('lb-img').src = src;
+    lb.classList.add('active');
+}
+function closeLightbox() {
+    document.querySelector('.lightbox-overlay').classList.remove('active');
+}
+
+// Auto-attach lightbox click to all collage images
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        document.querySelectorAll('.col-item img').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => openLightbox(img.src));
+        });
+    }, 500);
+});
