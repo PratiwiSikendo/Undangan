@@ -1,7 +1,25 @@
+// ── Firebase Setup ──────────────────────────────
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAU-rPvsMf1LOcfhiCObMA4qhv3m1-tmDg",
+    authDomain: "undangan-5b4ae.firebaseapp.com",
+    databaseURL: "https://undangan-5b4ae-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "undangan-5b4ae",
+    storageBucket: "undangan-5b4ae.firebasestorage.app",
+    messagingSenderId: "698963662272",
+    appId: "1:698963662272:web:cf3d4f4bb123fa4ecee425",
+    measurementId: "G-X57P5314DD"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
 // ── Guest Name from URL ─────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
-    const guest = params.get('to');
+    const guest  = params.get('to');
     if (guest) document.getElementById('guest-name').innerText = guest;
 
     AOS.init({ once: true, offset: 50, duration: 1000 });
@@ -21,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Countdown
     const target = new Date('2026-05-30T10:00:00');
     setInterval(() => {
-        const now = new Date();
+        const now  = new Date();
         const diff = target - now;
         if (diff <= 0) {
             ['cd-hari','cd-jam','cd-menit','cd-detik'].forEach(id => document.getElementById(id).textContent = '00');
@@ -31,11 +49,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const h = Math.floor((diff % 864e5) / 36e5);
         const m = Math.floor((diff % 36e5) / 6e4);
         const s = Math.floor((diff % 6e4) / 1e3);
-        document.getElementById('cd-hari').textContent   = String(d).padStart(2,'0');
-        document.getElementById('cd-jam').textContent    = String(h).padStart(2,'0');
-        document.getElementById('cd-menit').textContent  = String(m).padStart(2,'0');
-        document.getElementById('cd-detik').textContent  = String(s).padStart(2,'0');
+        document.getElementById('cd-hari').textContent  = String(d).padStart(2,'0');
+        document.getElementById('cd-jam').textContent   = String(h).padStart(2,'0');
+        document.getElementById('cd-menit').textContent = String(m).padStart(2,'0');
+        document.getElementById('cd-detik').textContent = String(s).padStart(2,'0');
     }, 1000);
+
+    // ── Load wishes dari Firebase ─────────────────
+    loadWishes();
+
+    // ── Lightbox setup ────────────────────────────
+    const lb = document.createElement('div');
+    lb.className = 'lightbox-overlay';
+    lb.innerHTML = '<button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lb-img" src="" alt="">';
+    document.body.appendChild(lb);
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    // Lightbox untuk foto kolase
+    setTimeout(() => {
+        document.querySelectorAll('.col-item img').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', () => openLightbox(img.src));
+        });
+    }, 500);
 });
 
 // ── Particles (gold dust) ───────────────────────
@@ -54,9 +91,9 @@ particlesJS('particles-js', {
 });
 
 // ── Open Invitation ─────────────────────────────
-const audio = document.getElementById('bg-music');
+const audio    = document.getElementById('bg-music');
 const musicBtn = document.getElementById('music-btn');
-let playing = false;
+let playing    = false;
 
 function openInvitation() {
     const cover = document.getElementById('cover');
@@ -86,6 +123,8 @@ function openInvitation() {
     }).catch(() => {});
 }
 
+window.openInvitation = openInvitation;
+
 // ── Toggle Music ────────────────────────────────
 function toggleMusic() {
     if (playing) {
@@ -98,75 +137,140 @@ function toggleMusic() {
     playing = !playing;
 }
 
-// ── RSVP Submit ─────────────────────────────────
+window.toggleMusic = toggleMusic;
+
+// ── RSVP Submit → simpan ke Firebase ────────────
 function submitRSVP(e) {
     e.preventDefault();
     const nama      = document.getElementById('nama').value.trim();
+    const jumlah    = document.getElementById('jumlah').value;
     const kehadiran = document.getElementById('kehadiran').value;
     const ucapan    = document.getElementById('ucapan').value.trim();
 
+    const wishRef = ref(db, 'wishes');
+    push(wishRef, {
+        nama,
+        jumlah,
+        kehadiran,
+        ucapan,
+        timestamp: serverTimestamp()
+    }).then(() => {
+        document.getElementById('rsvp-form').reset();
+        showToast('Terima kasih! Ucapan Anda telah terkirim 🤍');
+    }).catch(() => {
+        showToast('Gagal mengirim, coba lagi ya 🙏');
+    });
+}
+
+window.submitRSVP = submitRSVP;
+
+// ── Load & Tampilkan Wishes dari Firebase ────────
+function loadWishes() {
+    const wishRef   = ref(db, 'wishes');
     const container = document.getElementById('wishes-container');
-    const card = document.createElement('div');
-    card.className = 'wish-card';
-    card.style.animation = 'wishAppear .5s ease forwards';
-    card.innerHTML = `
-        <div class="wish-name serif">${nama} <span style="font-size:.68rem;color:rgba(240,222,200,.4);">✦</span></div>
-        <div class="wish-text">${ucapan}</div>
-        <div class="wish-time">${kehadiran} · Baru saja</div>
-        <button class="btn-reply" onclick="toggleReply(this)">
-            <i class="fas fa-reply"></i> Balas
-        </button>
-        <div class="reply-form" style="display:none;">
-            <input type="text" class="input-field reply-input" placeholder="Tulis balasan dari Christian &amp; Anggita…" style="margin-top:10px;margin-bottom:8px;font-size:.78rem;padding:10px 14px;">
-            <button class="btn-send-reply" onclick="sendReply(this)">Kirim Balasan</button>
-        </div>
-        <div class="reply-section"></div>
-    `;
-    container.prepend(card);
-    document.getElementById('rsvp-form').reset();
-    showToast('Terima kasih! Ucapan Anda telah terkirim 🤍');
+
+    onValue(wishRef, (snapshot) => {
+        // Hapus semua card kecuali card default pertama
+        container.innerHTML = '';
+
+        if (!snapshot.exists()) {
+            container.innerHTML = `
+                <div class="wish-card">
+                    <div class="wish-name serif">Keluarga Besar <span style="font-size:.7rem;color:rgba(240,222,200,.4);">✦</span></div>
+                    <div class="wish-text">Selamat menempuh hidup baru. Semoga rumah tangga kalian selalu diberkati Tuhan dan penuh kebahagiaan.</div>
+                    <div class="wish-time">Hadir · Baru saja</div>
+                </div>`;
+            return;
+        }
+
+        // Kumpulkan semua data lalu tampilkan terbaru di atas
+        const wishes = [];
+        snapshot.forEach(child => {
+            wishes.push({ key: child.key, ...child.val() });
+        });
+        wishes.reverse();
+
+        wishes.forEach(data => {
+            const card = document.createElement('div');
+            card.className = 'wish-card';
+            card.dataset.key = data.key;
+
+            const waktu = data.timestamp
+                ? new Date(data.timestamp).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })
+                : 'Baru saja';
+
+            card.innerHTML = `
+                <div class="wish-name serif">${escHtml(data.nama)} <span style="font-size:.68rem;color:rgba(240,222,200,.4);">✦</span></div>
+                <div class="wish-text">${escHtml(data.ucapan)}</div>
+                <div class="wish-time">${escHtml(data.kehadiran)} · ${waktu} · ${data.jumlah || 1} pax</div>
+                <button class="btn-reply" onclick="toggleReply(this)">
+                    <i class="fas fa-reply"></i> Balas
+                </button>
+                <div class="reply-form" style="display:none;">
+                    <input type="text" class="input-field reply-input"
+                        placeholder="Tulis balasan dari Christian &amp; Anggita…"
+                        style="margin-top:10px;margin-bottom:8px;font-size:.78rem;padding:10px 14px;">
+                    <button class="btn-send-reply" onclick="sendReply(this)">Kirim Balasan</button>
+                </div>
+                <div class="reply-section"></div>
+            `;
+            container.appendChild(card);
+        });
+    });
+}
+
+// ── Helper: escape HTML ──────────────────────────
+function escHtml(str) {
+    return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
 }
 
 // ── Toggle Reply Form ────────────────────────────
 function toggleReply(btn) {
-    const card = btn.closest('.wish-card');
-    const form = card.querySelector('.reply-form');
+    const card     = btn.closest('.wish-card');
+    const form     = card.querySelector('.reply-form');
     const isHidden = form.style.display === 'none';
     form.style.display = isHidden ? 'block' : 'none';
-    if (isHidden) {
-        setTimeout(() => card.querySelector('.reply-input').focus(), 50);
-    }
+    if (isHidden) setTimeout(() => card.querySelector('.reply-input').focus(), 50);
 }
+
+window.toggleReply = toggleReply;
 
 // ── Send Reply ───────────────────────────────────
 function sendReply(btn) {
-    const card = btn.closest('.wish-card');
+    const card  = btn.closest('.wish-card');
     const input = card.querySelector('.reply-input');
-    const text = input.value.trim();
+    const text  = input.value.trim();
     if (!text) return;
 
     const replySection = card.querySelector('.reply-section');
-    const replyEl = document.createElement('div');
-    replyEl.className = 'reply-bubble';
-    replyEl.innerHTML = `
+    const replyEl      = document.createElement('div');
+    replyEl.className  = 'reply-bubble';
+    replyEl.innerHTML  = `
         <div class="reply-author">
             <i class="fas fa-heart" style="font-size:.6rem;margin-right:6px;color:rgba(180,130,130,.7);"></i>
             Christian &amp; Anggita
         </div>
-        <div class="reply-text">${text}</div>
+        <div class="reply-text">${escHtml(text)}</div>
     `;
     replySection.appendChild(replyEl);
-
     input.value = '';
     card.querySelector('.reply-form').style.display = 'none';
     showToast('Balasan terkirim 🤍');
 }
+
+window.sendReply = sendReply;
 
 // ── Copy Rekening ────────────────────────────────
 function copyText(id) {
     const text = document.getElementById(id).innerText;
     navigator.clipboard.writeText(text).then(() => showToast('Nomor rekening berhasil disalin!'));
 }
+
+window.copyText = copyText;
 
 // ── Toast ─────────────────────────────────────────
 function showToast(msg) {
@@ -190,43 +294,20 @@ function showToast(msg) {
 }
 
 // ── Wish appear animation ────────────────────────
-const style = document.createElement('style');
-style.textContent = `@keyframes wishAppear { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }`;
-document.head.appendChild(style);
+const styleEl = document.createElement('style');
+styleEl.textContent = `@keyframes wishAppear { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }`;
+document.head.appendChild(styleEl);
 
-// ── Lightbox for Collage ─────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-    // Create lightbox element once
-    const lb = document.createElement('div');
-    lb.className = 'lightbox-overlay';
-    lb.innerHTML = '<button class="lightbox-close" onclick="closeLightbox()">&times;</button><img id="lb-img" src="" alt="">';
-    document.body.appendChild(lb);
-
-    lb.addEventListener('click', (e) => {
-        if (e.target === lb) closeLightbox();
-    });
-
-    // Keyboard close
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeLightbox();
-    });
-});
-
+// ── Lightbox ─────────────────────────────────────
 function openLightbox(src) {
     const lb = document.querySelector('.lightbox-overlay');
     document.getElementById('lb-img').src = src;
     lb.classList.add('active');
 }
+
 function closeLightbox() {
     document.querySelector('.lightbox-overlay').classList.remove('active');
 }
 
-// Auto-attach lightbox click to all collage images
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        document.querySelectorAll('.col-item img').forEach(img => {
-            img.style.cursor = 'zoom-in';
-            img.addEventListener('click', () => openLightbox(img.src));
-        });
-    }, 500);
-});
+window.openLightbox  = openLightbox;
+window.closeLightbox = closeLightbox;

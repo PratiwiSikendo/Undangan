@@ -153,11 +153,11 @@
         <!-- 5 · GALLERY KOLASE -->
         <section class="section" style="padding:40px 24px;" data-aos="fade-up">
             <div style="max-width:860px;margin:0 auto;text-align:center;">
-                <h2 class="serif gold-text section-title">Our Story</h2>
+                <h2 class="serif gold-text section-title">Our Gallery</h2>
                 <div class="divider"></div>
 
                 <div class="collage-grid" style="margin-top:28px;">
- 
+
                     <!-- Baris 1: 2 foto portrait pink -->
                     <div class="col-item">
                         <img src="assets/crem.jpeg" alt="Prewed">
@@ -166,7 +166,7 @@
                         <img src="assets/crem (2).jpeg" alt="Prewed">
                     </div>
 
-                    <!-- Baris 1: 2 foto portrait pink -->
+                    <!-- Baris 2: 2 foto portrait pink -->
                     <div class="col-item">
                         <img src="assets/prewed1.jpeg" alt="Prewed">
                     </div>
@@ -174,7 +174,7 @@
                         <img src="assets/prewed3.jpeg" alt="Prewed">
                     </div>
 
-                    <!-- Baris 2: 2 foto outdoor -->
+                    <!-- Baris 3: 2 foto outdoor -->
                     <div class="col-item">
                         <img src="assets/manado.png" alt="Prewed">
                     </div>
@@ -182,7 +182,7 @@
                         <img src="assets/manado1.png" alt="Prewed">
                     </div>
 
-                    <!-- Baris 3: 2 foto hitam putih -->
+                    <!-- Baris 4: 2 foto hitam putih -->
                     <div class="col-item">
                         <img src="assets/BG (2).jpeg" alt="Prewed" style="object-position:center bottom;">
                     </div>
@@ -190,7 +190,7 @@
                         <img src="assets/BG (3).jpeg" alt="Prewed" style="object-position:center bottom;">
                     </div>
 
-                    <!-- Baris 4: 1 foto landscape penuh -->
+                    <!-- Baris 5: 1 foto landscape penuh -->
                     <div class="col-item landscape-full">
                         <img src="assets/prewed7.jpeg" alt="Prewed">
                     </div>
@@ -202,7 +202,6 @@
         <!-- 6 · TURUT MENGUNDANG -->
         <section class="section" style="padding:40px 24px;" data-aos="fade-up">
             <div class="glass-wrap center" style="max-width:600px;">
-                <p class="section-label">Keluarga Besar</p>
                 <h2 class="serif gold-text section-title">Turut Mengundang</h2>
                 <div class="divider"></div>
                 <div class="turut-grid">
@@ -261,18 +260,9 @@
                         <p class="sans" style="font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:rgba(240,222,200,.55);margin-bottom:14px;">
                             Doa &amp; Ucapan</p>
                         <div class="wishes-scroll" id="wishes-container">
-                            <div class="wish-card">
-                                <div class="wish-name serif">Keluarga Besar <span style="font-size:.7rem;color:rgba(240,222,200,.4);">✦</span></div>
-                                <div class="wish-text">Selamat menempuh hidup baru. Semoga rumah tangga kalian selalu diberkati Tuhan dan penuh kebahagiaan.</div>
-                                <div class="wish-time">Hadir · Baru saja</div>
-                                <button class="btn-reply" onclick="toggleReply(this)">
-                                    <i class="fas fa-reply"></i> Balas
-                                </button>
-                                <div class="reply-form" style="display:none;">
-                                    <input type="text" class="input-field reply-input" placeholder="Tulis balasan dari Christian &amp; Anggita…" style="margin-top:10px;margin-bottom:8px;font-size:.78rem;padding:10px 14px;">
-                                    <button class="btn-send-reply" onclick="sendReply(this)">Kirim Balasan</button>
-                                </div>
-                                <div class="reply-section"></div>
+                            <!-- Ucapan akan dimuat dari Firebase -->
+                            <div style="text-align:center;padding:20px 0;color:rgba(253,248,245,.3);font-size:.75rem;">
+                                Memuat ucapan...
                             </div>
                         </div>
                     </div>
@@ -293,8 +283,8 @@
                 <div class="rekening-box">
                     <div>
                         <p class="sans" style="font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:rgba(253,248,245,.4);margin-bottom:4px;">
-                            BCA · a.n Christian Diamanis</p>
-                        <div class="rek-num serif gold-text" id="rek1">1234567890</div>
+                            BCA · a.n Anggita Kanine </p>
+                        <div class="rek-num serif gold-text" id="rek1">0263947875</div>
                     </div>
                     <button class="btn-copy" onclick="copyText('rek1')">Salin</button>
                 </div>
@@ -326,6 +316,9 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+
+    <!-- ── Firebase SDK ── -->
+    <script type="module" src="script.js"></script>
+
 </body>
 </html>
